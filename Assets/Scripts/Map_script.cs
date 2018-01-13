@@ -36,8 +36,8 @@ public class Map_script : MonoBehaviour {
     }
 
 
-    public int columns = 8;                                         //Number of columns in our game board.
-    public int rows = 8;                                            //Number of rows in our game board.
+    public int columns = 2;                                         //Number of columns in our game board.
+    public int rows = 2;                                            //Number of rows in our game board.
     public Count wallCount = new Count(5, 9);                      //Lower and upper limit for our random number of walls per level.
     public Count foodCount = new Count(1, 5);                      //Lower and upper limit for our random number of food items per level.
     public GameObject exit;                                         //Prefab to spawn for exit.
