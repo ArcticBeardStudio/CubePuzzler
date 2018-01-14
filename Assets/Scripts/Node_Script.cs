@@ -11,7 +11,7 @@ public class Node_Script : MonoBehaviour {
     int ColorType;
     int NodeType;
     public Material Actualcolor; 
-    public Material[] color;
+    
 
 
     //if needed for neightbourse 0 is -1 in x column , 1 is +1 in x column, 2 is -1 in y column and 3 is +1 in y column     
@@ -22,9 +22,9 @@ public class Node_Script : MonoBehaviour {
     void Start () {
         // Init for Node - set variables
 
-        ColorType = Random.Range(0, color.Length);
-        //Actualcolor = GetComponent<MeshRenderer>().materials[0];
-        Actualcolor = color[ColorType];
+        //ColorType = Random.Range(0, color.Length);
+        ////Actualcolor = GetComponent<MeshRenderer>().materials[0];
+        //Actualcolor = color[ColorType];
         GetComponent<MeshRenderer>().material = Actualcolor;
         Debug.Log(ColorType);
         //NodeType = Random.Range(0, 4);

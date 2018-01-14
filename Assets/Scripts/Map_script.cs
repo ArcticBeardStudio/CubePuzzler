@@ -38,8 +38,8 @@ public class Map_script : MonoBehaviour {
 
     public int columns = 2;                                         //Number of columns in our game board.
     public int rows = 2;                                            //Number of rows in our game board.
-    public Count wallCount = new Count(5, 9);                      //Lower and upper limit for our random number of walls per level.
-    public Count foodCount = new Count(1, 5);                      //Lower and upper limit for our random number of food items per level.
+    //public Count wallCount = new Count(5, 9);                      //Lower and upper limit for our random number of walls per level.
+    //public Count foodCount = new Count(1, 5);                      //Lower and upper limit for our random number of food items per level.
     public GameObject exit;                                         //Prefab to spawn for exit.
     public GameObject[] floorTiles;                                 //Array of floor prefabs.
     public GameObject[] wallTiles;                                  //Array of wall prefabs.
@@ -102,8 +102,11 @@ public class Map_script : MonoBehaviour {
 
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(Map);
-                instance.name = "box (" + y +"." +x + ")"; 
-                
+                instance.name = "box (" + y +"." +x + ")";
+                instance.GetComponent<Node_Script>().Actualcolor = color[Random.Range(0, color.Length)];
+
+
+
             }
         }
     }
@@ -141,18 +144,7 @@ public class Map_script : MonoBehaviour {
         Destroy(Map.gameObject);
         gridPositions.Clear();
 
-        //children.ForEach(child => Destroy(child));
-        //foreach (Transform child in Map)
-        //{
-        //    Destroy(child.gameObject);
-        //}
-
-        //for (int i = childs - 1; i > 0; i--)
-        //{
-        //    GameObject.Destroy(Map.GetChild(i).gameObject);
-        //    Map
-        //}
-        //Debug.Log("Child Count is  " + Map.childCount);
+      
     }
 
 
@@ -203,20 +195,10 @@ public class Map_script : MonoBehaviour {
         //Reset our list of gridpositions.
         InitialiseList();
 
-        //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-        //LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-
-        ////Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-        //LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
-
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
 
-        ////Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-        //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-
-        //Instantiate the exit tile in the upper right hand corner of our game board
-        //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+     
     }
 }
 
