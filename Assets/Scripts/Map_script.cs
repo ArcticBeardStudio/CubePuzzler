@@ -51,6 +51,7 @@ public class Map_script : MonoBehaviour {
     public Transform Map;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();   //A list of possible locations to place tiles.
 
+    public Manager_script managerref;
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
@@ -107,44 +108,58 @@ public class Map_script : MonoBehaviour {
 
 
 
+                managerref.Board.Add(instance);
+                
             }
         }
     }
 
     public void RemoveChildren()
     {
-        Debug.Log("Child Count is  " + Map.childCount);
+        //Debug.Log("Child Count is  " + Map.childCount);
 
 
         //int childs = Map.childCount;
 
 
         //Debug.Log(transform.childCount);
-        int i = 0;
+        //int i = 0;
 
         //Array to hold all child obj
-        GameObject[] allChildren = new GameObject[Map.childCount];
+        //GameObject[] allChildren = new GameObject[Map.childCount];
 
         //Find all child obj and store to that array
+        /*
         foreach (Transform child in Map)
         {
             allChildren[i] = child.gameObject;
             i += 1;
         }
-
+        */
         //Now destroy them
-        foreach (GameObject child in allChildren)
+        foreach (GameObject child in managerref.Board)
         {
             //DestroyImmediate(child.gameObject);
-            Debug.Log(child.name);
+            //Debug.Log(child.name);
             Destroy(child.gameObject);
         }
         Map.DetachChildren();
-        Debug.Log(transform.childCount);
+        //Debug.Log(transform.childCount);
         Destroy(Map.gameObject);
         gridPositions.Clear();
+        managerref.Board.Clear();
+        //children.ForEach(child => Destroy(child));
+        //foreach (Transform child in Map)
+        //{
+        //    Destroy(child.gameObject);
+        //}
 
-      
+        //for (int i = childs - 1; i > 0; i--)
+        //{
+        //    GameObject.Destroy(Map.GetChild(i).gameObject);
+        //    Map
+        //}
+        //Debug.Log("Child Count is  " + Map.childCount);
     }
 
 
@@ -195,10 +210,20 @@ public class Map_script : MonoBehaviour {
         //Reset our list of gridpositions.
         InitialiseList();
 
+        //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
+        //LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+
+        ////Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
+        //LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+
         //Determine number of enemies based on current level number, based on a logarithmic progression
         int enemyCount = (int)Mathf.Log(level, 2f);
 
-     
+        ////Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
+        //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+
+        //Instantiate the exit tile in the upper right hand corner of our game board
+        //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
     }
 }
 
