@@ -10,7 +10,8 @@ public class Node_Script : MonoBehaviour {
     // ColorType - 0 = Green, 1 = Blue, 2 = Red, 3 = Yellow, 4 = Pink, 5 = Orange, 6 = Teal
     public int ColorType;
     int NodeType;
-    public Material Actualcolor; 
+    public Material Actualcolor;
+    public bool Activated = false;
     
 
 
@@ -29,7 +30,6 @@ public class Node_Script : MonoBehaviour {
         Debug.Log(ColorType);
         //NodeType = Random.Range(0, 4);
         NodeType = 3;
-
     }
     public void ChangeMaterial(Material newmat)
     {

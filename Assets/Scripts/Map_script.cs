@@ -104,8 +104,11 @@ public class Map_script : MonoBehaviour {
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(Map);
                 instance.name = "box (" + y +"." +x + ")";
-                instance.GetComponent<Node_Script>().Actualcolor = color[Random.Range(0, color.Length)];
-                
+                int index = Random.Range(0, color.Length);
+
+                instance.GetComponent<Node_Script>().Actualcolor = color[index];
+                instance.GetComponent<Node_Script>().ColorType = index;
+
                 managerref.Board.Add(instance);
                 
             }
