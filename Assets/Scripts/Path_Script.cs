@@ -27,6 +27,7 @@ public class Path_Script : MonoBehaviour {
         foreach (int node in FinalPath)
         {
             NodeList[node].transform.Translate(Vector3.up);
+            NodeList[node].GetComponent<Node_Script>().Activated = true;
             Debug.Log(node + "\n");
         }*/
     }

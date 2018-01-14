@@ -22,9 +22,16 @@ using System.Collections.Generic;       //Allows us to use Lists.
     int blackAmountLeft = 0;
     int whiteAmountLeft = 0;
 
+    int yellowAmountAct = 0;
+    int blueAmountAct = 0;
+    int greenAmountAct = 0;
+    int redAmountAct = 0;
+    int blackAmountAct = 0;
+    int whiteAmountAct = 0;
+
     public Path_Script pathScript;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-    private Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
+    public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth = 8;
@@ -110,13 +117,12 @@ using System.Collections.Generic;       //Allows us to use Lists.
     //Update is called every frame.
     void Update()
     {
-        
-        yellowAmountText.text = yellowAmountLeft.ToString();
-        blueAmountText.text = blueAmountLeft.ToString();
-        greenAmountText.text = greenAmountLeft.ToString();
-        redAmountText.text = redAmountLeft.ToString();
-        blackAmountText.text = blackAmountLeft.ToString();
-        whiteAmountText.text = whiteAmountLeft.ToString();
+        yellowAmountText.text = (yellowAmountLeft - yellowAmountAct).ToString();
+        blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
+        greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
+        redAmountText.text = (redAmountLeft - redAmountAct).ToString();
+        blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
+        whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
 
         if (Input.GetKey(KeyCode.R))
         {
@@ -174,6 +180,42 @@ using System.Collections.Generic;       //Allows us to use Lists.
             else if (colorType == 5)
             {
                 whiteAmountLeft++;
+            }
+        }
+    }
+
+    public void PlayerMoved()
+    {
+        for (int i = 0; i < (Board.Count); i++)
+        {
+            if(Board[i].GetComponent<Node_Script>().Activated)
+            {
+                int colorType = Board[i].GetComponent<Node_Script>().ColorType;
+                // ColorType - 0 = Blue, 1 = Green, 2 = Red, 3 = Yellow, 4 = Black, 5 = White
+                if (colorType == 0)
+                {
+                    blueAmountAct++;
+                }
+                else if (colorType == 1)
+                {
+                    greenAmountAct++;
+                }
+                else if (colorType == 2)
+                {
+                    redAmountAct++;
+                }
+                else if (colorType == 3)
+                {
+                    yellowAmountAct++;
+                }
+                else if (colorType == 4)
+                {
+                    blackAmountAct++;
+                }
+                else if (colorType == 5)
+                {
+                    whiteAmountAct++;
+                }
             }
         }
     }
