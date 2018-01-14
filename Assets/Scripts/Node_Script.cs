@@ -12,6 +12,7 @@ public class Node_Script : MonoBehaviour {
     int NodeType;
     public Material Actualcolor;
     public bool Activated = false;
+    bool colorChanged = false;
     
 
 
@@ -38,6 +39,14 @@ public class Node_Script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Activated && !colorChanged)
+        {
+            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType + 6];
+            colorChanged = true;
+        }else if(!Activated && colorChanged)
+        {
+            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType];
+            colorChanged = false;
+        }
 	}
 }

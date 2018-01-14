@@ -170,6 +170,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b055c5869cfe22f4b8f05923ac15366f, type: 2}
   - {fileID: 2100000, guid: bba320c101ecd3244971ce8570cc0a5f, type: 2}
   - {fileID: 2100000, guid: 045b2a5ca82b53947bdb360b8d28fef7, type: 2}
+  - {fileID: 2100000, guid: 28cb3030875269547a921456f6305c24, type: 2}
+  - {fileID: 2100000, guid: a0f0ca0686f427546916e559ab159e4b, type: 2}
+  - {fileID: 2100000, guid: d1912e6d219184f4c8dea14b44b7aab3, type: 2}
+  - {fileID: 2100000, guid: bb98116c55aba9b44a1d680416f06897, type: 2}
+  - {fileID: 2100000, guid: be753bd0704551648bc8a02b0e4acda0, type: 2}
+  - {fileID: 2100000, guid: 1c0edda5156cddc4a903a0adb7a7287a, type: 2}
   outerWallTiles:
   - {fileID: 1527829599639978, guid: 89e83e05210b60b4496540a71f8c9429, type: 2}
   Map: {fileID: 0}
