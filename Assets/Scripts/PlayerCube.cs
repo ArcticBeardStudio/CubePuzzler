@@ -26,6 +26,7 @@ public class PlayerCube : MonoBehaviour {
         {
             if (currenttileindex - Manager_script.instance.boardWidth <= maxboardsize)
                 currenttileindex = currenttileindex + Manager_script.instance.boardWidth;
+                
 
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -36,13 +37,13 @@ public class PlayerCube : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currenttileindex - Manager_script.instance.boardLength >= 0)
+            if (currenttileindex - 1 >= 0)
                 currenttileindex = currenttileindex - 1;
             
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currenttileindex - Manager_script.instance.boardLength <= maxboardsize)
+            if (currenttileindex - 1 <= maxboardsize)
                 currenttileindex = currenttileindex + 1;
         }
     }

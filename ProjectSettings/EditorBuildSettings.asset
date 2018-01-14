@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Preload.unity
+    guid: 52816ec19c26ce7408a5d77a21ae0d18
+  - enabled: 1
+    path: Assets/Main_menu.unity
+    guid: 07b32e090b30991499d866b4fcc415de
+  - enabled: 1
+    path: Assets/CubePuzzler_01.unity
+    guid: 61804cdda1185614fb73899e17afeca6
