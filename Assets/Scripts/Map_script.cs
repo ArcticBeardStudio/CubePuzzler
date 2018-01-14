@@ -105,9 +105,7 @@ public class Map_script : MonoBehaviour {
                 instance.transform.SetParent(Map);
                 instance.name = "box (" + y +"." +x + ")";
                 instance.GetComponent<Node_Script>().Actualcolor = color[Random.Range(0, color.Length)];
-
-
-
+                
                 managerref.Board.Add(instance);
                 
             }

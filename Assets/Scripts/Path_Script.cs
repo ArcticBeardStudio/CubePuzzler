@@ -7,42 +7,14 @@ public class Path_Script : MonoBehaviour {
     // THE PATH WE WANT
     List<int> FinalPath = new List<int>();
 
-    public GameObject cube0;
-    public GameObject cube1;
-    public GameObject cube2;
-    public GameObject cube3;
-    public GameObject cube4;
-    public GameObject cube5;
-    public GameObject cube6;
-    public GameObject cube7;
-    public GameObject cube8;
-    public GameObject cube9;
-    public GameObject cube10;
-    public GameObject cube11;
-    public GameObject cube12;
-    public GameObject cube13;
-    public GameObject cube14;
+    public List<GameObject> NodeList = new List<GameObject>();
 
-    List<GameObject> NodeList = new List<GameObject>();
+    public int widthOfBoard = 8;
+    public int lengthOfBoard = 5;
 
     // Use this for initialization
     void Start () {
-        NodeList.Add(cube0);
-        NodeList.Add(cube1);
-        NodeList.Add(cube2);
-        NodeList.Add(cube3);
-        NodeList.Add(cube4);
-        NodeList.Add(cube5);
-        NodeList.Add(cube6);
-        NodeList.Add(cube7);
-        NodeList.Add(cube8);
-        NodeList.Add(cube9);
-        NodeList.Add(cube10);
-        NodeList.Add(cube11);
-        NodeList.Add(cube12);
-        NodeList.Add(cube13);
-        NodeList.Add(cube14);
-        Debug.Log("NEW GAME");
+        Debug.Log("NEW GAME");/*
         List<int> testRandom = new List<int>();
         testRandom.Add(1);
         //testRandom.Add(4);
@@ -51,12 +23,12 @@ public class Path_Script : MonoBehaviour {
         testRandom.Add(13);
         //Debug.Log("random size: " + testRandom.Count);
         NewPath(testRandom);
-
+        
         foreach (int node in FinalPath)
         {
             NodeList[node].transform.Translate(Vector3.up);
             Debug.Log(node + "\n");
-        }
+        }*/
     }
 	
 	// Update is called once per frame
@@ -64,7 +36,7 @@ public class Path_Script : MonoBehaviour {
 		
 	}
 
-    List<int> NewPath(List<int> randomIndex)
+    public List<int> NewPath(List<int> randomIndex)
     {
         Debug.Log("NEWPATH");
         int currentStart = 0;
@@ -119,7 +91,7 @@ public class Path_Script : MonoBehaviour {
 
         //LOOP OVER THE MAP AND ADD int.MaxValue to each position in fScore and gScore
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < (lengthOfBoard*widthOfBoard); i++)
         {
             fScore.Add(int.MaxValue/2);
             gScore.Add(int.MaxValue/2);
@@ -152,17 +124,17 @@ public class Path_Script : MonoBehaviour {
             closedSet.Add(current);
 
             List<int> neighBours = new List<int>();
-            if((current + 1) < 15)
+            if((current + 1) < (lengthOfBoard * widthOfBoard))
             {
                 neighBours.Add(current + 1);
             }
-            if ((current + 3) < 15)
+            if ((current + lengthOfBoard) < (lengthOfBoard * widthOfBoard))
             {
-                neighBours.Add(current + 3);
+                neighBours.Add(current + lengthOfBoard);
             }
-            if ((current - 3) > -1)
+            if ((current - lengthOfBoard) > -1)
             {
-                neighBours.Add(current - 3);
+                neighBours.Add(current - lengthOfBoard);
             }
             if ((current - 1) > -1)
             {
@@ -221,14 +193,14 @@ public class Path_Script : MonoBehaviour {
         while (yCounter < end)
         {
             yValue = yValue + 1;
-            yCounter = yCounter + 3;//widthOfBoard
+            yCounter = yCounter + lengthOfBoard;//widthOfBoard
         }
         while (yCounter != end)
         {
             yCounter = yCounter - 1;
             xValue = xValue + 1;
         }
-        if(xValue == 3)//widthOfBoard
+        if(xValue == lengthOfBoard)//widthOfBoard
         {
             xValue = 0;
         }

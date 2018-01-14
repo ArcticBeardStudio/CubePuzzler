@@ -65,15 +65,15 @@ using System.Collections.Generic;       //Allows us to use Lists.
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         
         Debug.Log("init");
-      
+        /*
         int first = level+1;//Random.Range(level, level+3);
         int second = Random.Range(first, first + 1);
         hell = new Vector3((float)first, 0, (float)second);
         hell = hell / 2;
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
-        
-        boardScript.SetBoardSize(first, second);
+        */
+        boardScript.SetBoardSize(boardLength, boardWidth);
 
         boardScript.SetupScene(level);
         

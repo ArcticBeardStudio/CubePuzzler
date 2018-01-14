@@ -8,7 +8,7 @@ public class Node_Script : MonoBehaviour {
     //VARIABLES
     // NodeType - 0 = goalNode, 1 = pathNode, 2 = noPathNode, 3 = startNode, 4 = endNode
     // ColorType - 0 = Green, 1 = Blue, 2 = Red, 3 = Yellow, 4 = Pink, 5 = Orange, 6 = Teal
-    int ColorType;
+    public int ColorType;
     int NodeType;
     public Material Actualcolor; 
     
