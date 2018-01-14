@@ -61,11 +61,11 @@ public class Path_Script : MonoBehaviour {
 
     void mergePath(List<int> newSetOfPath)
     {
+        newSetOfPath.RemoveAt(newSetOfPath.Count-1);
         Debug.Log("MergePATH");
         foreach (int node in newSetOfPath)
         {
-            FinalPath.Add(node);
-            /*
+            //FinalPath.Add(node);
             if (FinalPath.Contains(node))
             {
                 FinalPath.Remove(node);
@@ -73,7 +73,7 @@ public class Path_Script : MonoBehaviour {
             else
             {
                 FinalPath.Add(node);
-            }*/
+            }
         }
     }
 
@@ -124,7 +124,7 @@ public class Path_Script : MonoBehaviour {
             closedSet.Add(current);
 
             List<int> neighBours = new List<int>();
-            if((current + 1) < (lengthOfBoard * widthOfBoard))
+            if((current + 1) < (lengthOfBoard * widthOfBoard) && (((current+1)% lengthOfBoard) != 0))
             {
                 neighBours.Add(current + 1);
             }
@@ -136,7 +136,7 @@ public class Path_Script : MonoBehaviour {
             {
                 neighBours.Add(current - lengthOfBoard);
             }
-            if ((current - 1) > -1)
+            if (((current - 1) > -1) && (((current) % lengthOfBoard) != 0))
             {
                 neighBours.Add(current - 1);
             }

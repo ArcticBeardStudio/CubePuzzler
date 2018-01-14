@@ -73,7 +73,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
-        boardScript.SetBoardSize(boardLength, boardWidth);
+        boardScript.SetBoardSize(boardWidth, boardLength);
 
         boardScript.SetupScene(level);
         
@@ -148,6 +148,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
     {
         foreach(int node in wantedPath)
         {
+
             int colorType = Board[node].GetComponent<Node_Script>().ColorType;
             // ColorType - 0 = Blue, 1 = Green, 2 = Red, 3 = Yellow, 4 = Black, 5 = White
             if (colorType == 0)
@@ -158,19 +159,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
             {
                 greenAmountLeft++;
             }
-            else if (colorType == 1)
+            else if (colorType == 2)
             {
                 redAmountLeft++;
             }
-            else if (colorType == 1)
+            else if (colorType == 3)
             {
                 yellowAmountLeft++;
             }
-            else if (colorType == 1)
+            else if (colorType == 4)
             {
                 blackAmountLeft++;
             }
-            else if (colorType == 1)
+            else if (colorType == 5)
             {
                 whiteAmountLeft++;
             }
