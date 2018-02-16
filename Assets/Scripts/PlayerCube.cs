@@ -7,14 +7,21 @@ public class PlayerCube : MonoBehaviour {
     // Use this for initialization
      public Material PlayerMaterial;
     private int currenttileindex;
+<<<<<<< HEAD
     private Vector3 offset = new Vector3(0, 1, 0); 
      
+=======
+    private Vector3 offset = new Vector3(0, 1, 0);
+    bool playerMoved = false;
+
+
+>>>>>>> 40fca8234385577df4bb23e859f75a8f7f168acb
 
 
     void Start () {
         //PlayerMaterial = 
         GetComponent<MeshRenderer>().material = PlayerMaterial;
-        currenttileindex = Manager_script.instance.boardWidth / 2;
+        currenttileindex = 2;
     }
 	
 	// Update is called once per frame
@@ -24,27 +31,53 @@ public class PlayerCube : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currenttileindex - Manager_script.instance.boardWidth <= maxboardsize)
-                currenttileindex = currenttileindex + Manager_script.instance.boardWidth;
+
+            if ((currenttileindex + 1) < (maxboardsize) && (((currenttileindex + 1) % Manager_script.instance.boardLength) != 0))
+            {
+                currenttileindex = currenttileindex + 1;
+                playerMoved = true;
+            }
                 
 
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currenttileindex- Manager_script.instance.boardWidth >= 0 )
-            currenttileindex = currenttileindex - Manager_script.instance.boardWidth;
+            if (((currenttileindex - 1) > -1) && (((currenttileindex) % Manager_script.instance.boardLength) != 0))
+            {
+                currenttileindex = currenttileindex - 1;
+                playerMoved = true;
+            }
 
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currenttileindex - 1 >= 0)
-                currenttileindex = currenttileindex - 1;
-            
+            if ((currenttileindex - Manager_script.instance.boardLength) > -1)
+            {
+                currenttileindex = currenttileindex - Manager_script.instance.boardLength;
+                playerMoved = true;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currenttileindex - 1 <= maxboardsize)
-                currenttileindex = currenttileindex + 1;
+            if ((currenttileindex + Manager_script.instance.boardLength) < (maxboardsize))
+            {
+                currenttileindex = currenttileindex + Manager_script.instance.boardLength;
+                playerMoved = true;
+            }
+        }
+        if(playerMoved)
+        {
+            transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset;
+            if (Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated == true)
+            {
+                Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated = false;
+            }else
+            {
+                Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated = true;
+            }
+
+            Manager_script.instance.PlayerMoved();
+            playerMoved = false;
         }
         transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset;
 

@@ -192,6 +192,12 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
     public void PlayerMoved()
     {
+        yellowAmountAct = 0;
+        blueAmountAct = 0;
+        greenAmountAct = 0;
+        redAmountAct = 0;
+        blackAmountAct = 0;
+        whiteAmountAct = 0;
         for (int i = 0; i < (Board.Count); i++)
         {
             if(Board[i].GetComponent<Node_Script>().Activated)
