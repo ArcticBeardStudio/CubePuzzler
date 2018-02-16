@@ -15,19 +15,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public Text blackAmountText;
     public Text whiteAmountText;
 
-    int yellowAmountLeft = 0;
-    int blueAmountLeft = 0;
-    int greenAmountLeft = 0;
-    int redAmountLeft = 0;
-    int blackAmountLeft = 0;
-    int whiteAmountLeft = 0;
+    public int yellowAmountLeft = 0;
+    public int blueAmountLeft = 0;
+    public int greenAmountLeft = 0;
+    public int redAmountLeft = 0;
+    public int blackAmountLeft = 0;
+    public int whiteAmountLeft = 0;
 
-    int yellowAmountAct = 0;
-    int blueAmountAct = 0;
-    int greenAmountAct = 0;
-    int redAmountAct = 0;
-    int blackAmountAct = 0;
-    int whiteAmountAct = 0;
+    public int yellowAmountAct = 0;
+    public int blueAmountAct = 0;
+    public int greenAmountAct = 0;
+    public int redAmountAct = 0;
+    public int blackAmountAct = 0;
+    public int whiteAmountAct = 0;
 
     public Path_Script pathScript;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
@@ -36,6 +36,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth = 8;
     public int boardLength = 5;
+    int startIndex;
+    int endIndex;
+    int CheckpointsAmount;
+    int ColorsAmount;
 
     public List<GameObject> Board = new List<GameObject>();
     List<int> wantedPath = new List<int>();
@@ -80,14 +84,17 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
+        startIndex = (int)Math.Floor((float)boardLength / 2);
+        endIndex = startIndex + (boardLength * (boardWidth - 1));
+        CheckpointsAmount = 3;//HARDCODED
+
         boardScript.SetBoardSize(boardWidth, boardLength);
 
         boardScript.SetupScene(level);
         
         pathScript.NodeList = Board;
         GenerateRandomGoals();
-        pathScript.lengthOfBoard = boardLength;
-        pathScript.widthOfBoard = boardWidth;
+        
         hell = new Vector3(boardWidth, 0, boardLength);
         hell = hell / 2;
         wantedPath = pathScript.NewPath(randomGoals);
@@ -154,15 +161,30 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
     void GenerateRandomGoals()
     {
-        randomGoals.Add(2);
-        randomGoals.Add(14);
-        randomGoals.Add(20);
-        randomGoals.Add(29);
-        randomGoals.Add(37);
+        randomGoals.Add(startIndex);
+        List<int> unsortedRandomGoals = new List<int>();
+        for (int i = 0; i < (CheckpointsAmount); i++)
+        {
+            int randIndex = Random.Range(0, (boardWidth * boardLength) - 1);
+            unsortedRandomGoals.Add(randIndex);
+        }
+        unsortedRandomGoals.Sort();
+        for (int i = 0; i < (unsortedRandomGoals.Count); i++)
+        {
+            randomGoals.Add(unsortedRandomGoals[i]);
+        }
+        randomGoals.Add(endIndex);
     }
 
     void SetupGame()
     {
+        yellowAmountLeft = 0;
+        blueAmountLeft = 0;
+        greenAmountLeft = 0;
+        redAmountLeft = 0;
+        blackAmountLeft = 0;
+        whiteAmountLeft = 0;
+
         foreach(int node in wantedPath)
         {
 
