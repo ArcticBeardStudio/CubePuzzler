@@ -12,9 +12,13 @@ public class Map_script : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+     void Awake()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
 
     }
 

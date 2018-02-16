@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62f3ef9273cf3d449e727de6c5d1332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scene: 
 --- !u!1001 &1814575817
 Prefab:
   m_ObjectHideFlags: 0
@@ -190,6 +191,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4463335437516592, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678829815056206, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653005666175098, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

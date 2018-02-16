@@ -15,19 +15,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public Text blackAmountText;
     public Text whiteAmountText;
 
-    int yellowAmountLeft = 0;
-    int blueAmountLeft = 0;
-    int greenAmountLeft = 0;
-    int redAmountLeft = 0;
-    int blackAmountLeft = 0;
-    int whiteAmountLeft = 0;
+    public int yellowAmountLeft = 0;
+    public int blueAmountLeft = 0;
+    public int greenAmountLeft = 0;
+    public int redAmountLeft = 0;
+    public int blackAmountLeft = 0;
+    public int whiteAmountLeft = 0;
 
-    int yellowAmountAct = 0;
-    int blueAmountAct = 0;
-    int greenAmountAct = 0;
-    int redAmountAct = 0;
-    int blackAmountAct = 0;
-    int whiteAmountAct = 0;
+    public int yellowAmountAct = 0;
+    public int blueAmountAct = 0;
+    public int greenAmountAct = 0;
+    public int redAmountAct = 0;
+    public int blackAmountAct = 0;
+    public int whiteAmountAct = 0;
 
     public Path_Script pathScript;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
@@ -38,6 +38,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public int boardLength = 5;
     int startIndex;
     int endIndex;
+    int CheckpointsAmount;
+    int ColorsAmount;
 
     public List<GameObject> Board = new List<GameObject>();
     List<int> wantedPath = new List<int>();
@@ -65,11 +67,11 @@ using System.Collections.Generic;       //Allows us to use Lists.
         //Get a component reference to the attached BoardManager script
         boardScript = GetComponent<Map_script>();
         //Call the InitGame function to initialize the first level 
-        InitGame();
+        
     }
 
     //Initializes the game for each level.
-    void InitGame()
+    public void InitGame()
     {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         
@@ -82,6 +84,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
+        startIndex = (int)Math.Floor((float)boardLength / 2);
+        endIndex = startIndex + (boardLength * (boardWidth - 1));
+        CheckpointsAmount = 3;//HARDCODED
+
         boardScript.SetBoardSize(boardWidth, boardLength);
 
         boardScript.SetupScene(level);
@@ -117,41 +123,62 @@ using System.Collections.Generic;       //Allows us to use Lists.
     //Update is called every frame.
     void Update()
     {
-        yellowAmountText.text = (yellowAmountLeft - yellowAmountAct).ToString();
-        blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
-        greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
-        redAmountText.text = (redAmountLeft - redAmountAct).ToString();
-        blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
-        whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
-
-        if (Input.GetKey(KeyCode.R))
+        //if (SceneManager_Script.instance.Scene != "Preload" && SceneManager_Script.instance.Scene != "Main_menu")
+            if (yellowAmountText != null)
+            
         {
-            boardScript.RemoveChildren();
-            int first = Random.Range(level, level+3);
-            int second = Random.Range(level, level+3);
-            hell = new Vector3((float)first, 0, (float)second);
-            hell = hell / 2;
-            //Debug.Log("first " + first + "second " + second);
-            transform.GetChild(0).position = transform.position;
-            transform.GetChild(0).position = transform.GetChild(0).position + hell;
-            boardScript.SetBoardSize(first, second);
+            yellowAmountText.text = (yellowAmountLeft - yellowAmountAct).ToString();
+            blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
+            greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
+            redAmountText.text = (redAmountLeft - redAmountAct).ToString();
+            blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
+            whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
 
-            boardScript.SetupScene(level);
-            level++;
+            if (Input.GetKey(KeyCode.R))
+            {
+                boardScript.RemoveChildren();
+                int first = Random.Range(level, level + 3);
+                int second = Random.Range(level, level + 3);
+                hell = new Vector3((float)first, 0, (float)second);
+                hell = hell / 2;
+                //Debug.Log("first " + first + "second " + second);
+                transform.GetChild(0).position = transform.position;
+                transform.GetChild(0).position = transform.GetChild(0).position + hell;
+                boardScript.SetBoardSize(first, second);
+
+                boardScript.SetupScene(level);
+                level++;
+            }
         }
+        
     }
 
     void GenerateRandomGoals()
     {
-        randomGoals.Add(2);
-        randomGoals.Add(14);
-        randomGoals.Add(20);
-        randomGoals.Add(29);
-        randomGoals.Add(37);
+        randomGoals.Add(startIndex);
+        List<int> unsortedRandomGoals = new List<int>();
+        for (int i = 0; i < (CheckpointsAmount); i++)
+        {
+            int randIndex = Random.Range(0, (boardWidth * boardLength) - 1);
+            unsortedRandomGoals.Add(randIndex);
+        }
+        unsortedRandomGoals.Sort();
+        for (int i = 0; i < (unsortedRandomGoals.Count); i++)
+        {
+            randomGoals.Add(unsortedRandomGoals[i]);
+        }
+        randomGoals.Add(endIndex);
     }
 
     void SetupGame()
     {
+        yellowAmountLeft = 0;
+        blueAmountLeft = 0;
+        greenAmountLeft = 0;
+        redAmountLeft = 0;
+        blackAmountLeft = 0;
+        whiteAmountLeft = 0;
+
         foreach(int node in wantedPath)
         {
 
