@@ -7,7 +7,7 @@ public class PlayerCube : MonoBehaviour {
     // Use this for initialization
      public Material PlayerMaterial;
     private int currenttileindex;
-
+    private Vector3 offset = new Vector3(0, 1, 0); 
      
 
 
@@ -46,6 +46,8 @@ public class PlayerCube : MonoBehaviour {
             if (currenttileindex - 1 <= maxboardsize)
                 currenttileindex = currenttileindex + 1;
         }
+        transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset;
+
     }
     void Animate()
     {

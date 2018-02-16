@@ -63,11 +63,11 @@ using System.Collections.Generic;       //Allows us to use Lists.
         //Get a component reference to the attached BoardManager script
         boardScript = GetComponent<Map_script>();
         //Call the InitGame function to initialize the first level 
-        InitGame();
+        
     }
 
     //Initializes the game for each level.
-    void InitGame()
+    public void InitGame()
     {
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         
@@ -117,28 +117,34 @@ using System.Collections.Generic;       //Allows us to use Lists.
     //Update is called every frame.
     void Update()
     {
-        yellowAmountText.text = (yellowAmountLeft - yellowAmountAct).ToString();
-        blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
-        greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
-        redAmountText.text = (redAmountLeft - redAmountAct).ToString();
-        blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
-        whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
-
-        if (Input.GetKey(KeyCode.R))
+        //if (SceneManager_Script.instance.Scene != "Preload" && SceneManager_Script.instance.Scene != "Main_menu")
+            if (yellowAmountText != null)
+            
         {
-            boardScript.RemoveChildren();
-            int first = Random.Range(level, level+3);
-            int second = Random.Range(level, level+3);
-            hell = new Vector3((float)first, 0, (float)second);
-            hell = hell / 2;
-            //Debug.Log("first " + first + "second " + second);
-            transform.GetChild(0).position = transform.position;
-            transform.GetChild(0).position = transform.GetChild(0).position + hell;
-            boardScript.SetBoardSize(first, second);
+            yellowAmountText.text = (yellowAmountLeft - yellowAmountAct).ToString();
+            blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
+            greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
+            redAmountText.text = (redAmountLeft - redAmountAct).ToString();
+            blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
+            whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
 
-            boardScript.SetupScene(level);
-            level++;
+            if (Input.GetKey(KeyCode.R))
+            {
+                boardScript.RemoveChildren();
+                int first = Random.Range(level, level + 3);
+                int second = Random.Range(level, level + 3);
+                hell = new Vector3((float)first, 0, (float)second);
+                hell = hell / 2;
+                //Debug.Log("first " + first + "second " + second);
+                transform.GetChild(0).position = transform.position;
+                transform.GetChild(0).position = transform.GetChild(0).position + hell;
+                boardScript.SetBoardSize(first, second);
+
+                boardScript.SetupScene(level);
+                level++;
+            }
         }
+        
     }
 
     void GenerateRandomGoals()
