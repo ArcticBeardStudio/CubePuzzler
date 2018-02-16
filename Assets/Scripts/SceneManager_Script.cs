@@ -41,6 +41,10 @@ public class SceneManager_Script : MonoBehaviour {
          return SceneManager.GetActiveScene().name;
         
     }
+    public Scene GetactiveScene()
+    {
+        return SceneManager.GetActiveScene();
+    }
     public void Setupcanvas()
     {
 

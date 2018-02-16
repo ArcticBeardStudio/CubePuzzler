@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 92419605069459824}
   - component: {fileID: 124869510712388944}
   - component: {fileID: 81243495225336340}
-  - component: {fileID: 114580432633958426}
-  - component: {fileID: 114533119380897698}
+  - component: {fileID: 114992461045547034}
+  - component: {fileID: 114386516653859044}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -38,13 +38,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022990616142066}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalPosition: {x: 0, y: 10, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!20 &20997039614585206
 Camera:
   m_ObjectHideFlags: 1
@@ -95,7 +95,7 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022990616142066}
   m_Enabled: 1
---- !u!114 &114533119380897698
+--- !u!114 &114386516653859044
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -103,29 +103,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1022990616142066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94082e3dc0e96f942a9ac8a2ced79b48, type: 3}
+  m_Script: {fileID: 11500000, guid: 47ecdb2ea5cb5884cac43853d14e7138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.3
---- !u!114 &114580432633958426
+--- !u!114 &114992461045547034
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022990616142066}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65bf29321ba5e754095c351b66071388, type: 3}
+  m_Script: {fileID: 11500000, guid: a8d3968294210ba4a9d2bb96dfa74a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axes: 0
-  sensitivityX: 1
-  sensitivityY: 1
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
-  frameCounter: 20
+  m_Target: {fileID: 0}
+  m_AutoTargetPlayer: 1
+  m_UpdateType: 0
+  m_MoveSpeed: 3
+  m_TurnSpeed: 1
+  m_RollSpeed: 0.2
+  m_FollowVelocity: 0
+  m_FollowTilt: 1
+  m_SpinTurnLimit: 90
+  m_TargetVelocityLowerLimit: 4
+  m_SmoothTurnTime: 0.2
 --- !u!124 &124869510712388944
 Behaviour:
   m_ObjectHideFlags: 1

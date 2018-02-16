@@ -113,22 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &171479512 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1022990616142066, guid: 64927d2041a7a0c42ae262de41dd86e2,
-    type: 2}
-  m_PrefabInternal: {fileID: 346858674}
---- !u!114 &171479514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 171479512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ecdb2ea5cb5884cac43853d14e7138, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &176301511
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,30 +226,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 20997039614585206, guid: 64927d2041a7a0c42ae262de41dd86e2,
-        type: 2}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391884984922100, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391884984922100, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391884984922100, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4391884984922100, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114533119380897698, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
-    - {fileID: 114580432633958426, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64927d2041a7a0c42ae262de41dd86e2, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &407626114

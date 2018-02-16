@@ -88,7 +88,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
         GenerateRandomGoals();
         pathScript.lengthOfBoard = boardLength;
         pathScript.widthOfBoard = boardWidth;
+        hell = new Vector3(boardWidth, 0, boardLength);
+        hell = hell / 2;
         wantedPath = pathScript.NewPath(randomGoals);
+        GameObject.FindGameObjectWithTag("MainCamera").transform.position = hell + (GameObject.FindGameObjectWithTag("MainCamera").transform.forward * -1) * (boardWidth);
         SetupGame();
     }
 
@@ -131,17 +134,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
             if (Input.GetKey(KeyCode.R))
             {
                 boardScript.RemoveChildren();
-                int first = Random.Range(level, level + 3);
-                int second = Random.Range(level, level + 3);
-                hell = new Vector3((float)first, 0, (float)second);
-                hell = hell / 2;
-                //Debug.Log("first " + first + "second " + second);
-                transform.GetChild(0).position = transform.position;
-                transform.GetChild(0).position = transform.GetChild(0).position + hell;
-                boardScript.SetBoardSize(first, second);
+                //boardWidth = boardWidth + 1; //Random.Range(level, level + 3);
+                //boardLength = boardLength + 1;// Random.Range(level, level + 3);
+                //hell = new Vector3(boardWidth, 0, boardLength);
+                //hell = hell / 2;
+                ////Debug.Log("first " + first + "second " + second);
+                ////transform.GetChild(0).position = transform.position;
+                ////transform.GetChild(0).position = transform.GetChild(0).position + hell;
+                //GameObject.FindGameObjectWithTag("MainCamera").transform.position = hell + (GameObject.FindGameObjectWithTag("MainCamera").transform.forward * -1) * (boardWidth+4);
+                //boardScript.SetBoardSize(boardWidth, boardLength);
 
-                boardScript.SetupScene(level);
+                //boardScript.SetupScene(level);
                 level++;
+                InitGame();
             }
         }
         
