@@ -9,8 +9,7 @@ public class Path_Script : MonoBehaviour {
 
     public List<GameObject> NodeList = new List<GameObject>();
 
-    public int widthOfBoard = 8;
-    public int lengthOfBoard = 5;
+    
 
     // Use this for initialization
     void Start () {
@@ -92,7 +91,7 @@ public class Path_Script : MonoBehaviour {
 
         //LOOP OVER THE MAP AND ADD int.MaxValue to each position in fScore and gScore
 
-        for (int i = 0; i < (lengthOfBoard*widthOfBoard); i++)
+        for (int i = 0; i < (Manager_script.instance.boardLength * Manager_script.instance.boardWidth); i++)
         {
             fScore.Add(int.MaxValue/2);
             gScore.Add(int.MaxValue/2);
@@ -125,19 +124,19 @@ public class Path_Script : MonoBehaviour {
             closedSet.Add(current);
 
             List<int> neighBours = new List<int>();
-            if((current + 1) < (lengthOfBoard * widthOfBoard) && (((current+1)% lengthOfBoard) != 0)) //UP
+            if((current + 1) < (Manager_script.instance.boardLength * Manager_script.instance.boardWidth) && (((current+1)% Manager_script.instance.boardLength) != 0)) //UP
             {
                 neighBours.Add(current + 1);
             }
-            if ((current + lengthOfBoard) < (lengthOfBoard * widthOfBoard)) //RIGHT
+            if ((current + Manager_script.instance.boardLength) < (Manager_script.instance.boardLength * Manager_script.instance.boardWidth)) //RIGHT
             {
-                neighBours.Add(current + lengthOfBoard);
+                neighBours.Add(current + Manager_script.instance.boardLength);
             }
-            if ((current - lengthOfBoard) > -1) //LEFT
+            if ((current - Manager_script.instance.boardLength) > -1) //LEFT
             {
-                neighBours.Add(current - lengthOfBoard);
+                neighBours.Add(current - Manager_script.instance.boardLength);
             }
-            if (((current - 1) > -1) && (((current) % lengthOfBoard) != 0)) //DOWN
+            if (((current - 1) > -1) && (((current) % Manager_script.instance.boardLength) != 0)) //DOWN
             {
                 neighBours.Add(current - 1);
             }
@@ -194,14 +193,14 @@ public class Path_Script : MonoBehaviour {
         while (yCounter < end)
         {
             yValue = yValue + 1;
-            yCounter = yCounter + lengthOfBoard;//widthOfBoard
+            yCounter = yCounter + Manager_script.instance.boardLength;//widthOfBoard
         }
         while (yCounter != end)
         {
             yCounter = yCounter - 1;
             xValue = xValue + 1;
         }
-        if(xValue == lengthOfBoard)//widthOfBoard
+        if(xValue == Manager_script.instance.boardLength)//widthOfBoard
         {
             xValue = 0;
         }

@@ -36,6 +36,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth = 8;
     public int boardLength = 5;
+    int startIndex;
+    int endIndex;
 
     public List<GameObject> Board = new List<GameObject>();
     List<int> wantedPath = new List<int>();
@@ -86,8 +88,6 @@ using System.Collections.Generic;       //Allows us to use Lists.
         
         pathScript.NodeList = Board;
         GenerateRandomGoals();
-        pathScript.lengthOfBoard = boardLength;
-        pathScript.widthOfBoard = boardWidth;
         wantedPath = pathScript.NewPath(randomGoals);
         SetupGame();
     }
