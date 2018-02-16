@@ -29,6 +29,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public int blackAmountAct = 0;
     public int whiteAmountAct = 0;
 
+    public GameObject debugCube;
+
     public Path_Script pathScript;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
@@ -154,6 +156,14 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 //boardScript.SetupScene(level);
                 level++;
                 InitGame();
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                for (int i = 0; i < (wantedPath.Count); i++)
+                {
+                    GameObject instance = Instantiate(debugCube, new Vector3(0, 0f, 0), Quaternion.identity) as GameObject;
+                    instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
+                }
             }
         }
         
