@@ -125,19 +125,19 @@ public class Path_Script : MonoBehaviour {
             closedSet.Add(current);
 
             List<int> neighBours = new List<int>();
-            if((current + 1) < (lengthOfBoard * widthOfBoard) && (((current+1)% lengthOfBoard) != 0))
+            if((current + 1) < (lengthOfBoard * widthOfBoard) && (((current+1)% lengthOfBoard) != 0)) //UP
             {
                 neighBours.Add(current + 1);
             }
-            if ((current + lengthOfBoard) < (lengthOfBoard * widthOfBoard))
+            if ((current + lengthOfBoard) < (lengthOfBoard * widthOfBoard)) //RIGHT
             {
                 neighBours.Add(current + lengthOfBoard);
             }
-            if ((current - lengthOfBoard) > -1)
+            if ((current - lengthOfBoard) > -1) //LEFT
             {
                 neighBours.Add(current - lengthOfBoard);
             }
-            if (((current - 1) > -1) && (((current) % lengthOfBoard) != 0))
+            if (((current - 1) > -1) && (((current) % lengthOfBoard) != 0)) //DOWN
             {
                 neighBours.Add(current - 1);
             }

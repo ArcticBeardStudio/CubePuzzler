@@ -26,7 +26,8 @@ public class PlayerCube : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currenttileindex - Manager_script.instance.boardWidth <= maxboardsize)
+
+            if ((currenttileindex + 1) < (maxboardsize) && (((currenttileindex + 1) % Manager_script.instance.boardLength) != 0))
             {
                 currenttileindex = currenttileindex + 1;
                 playerMoved = true;
@@ -36,7 +37,7 @@ public class PlayerCube : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currenttileindex - Manager_script.instance.boardWidth >= 0)
+            if (((currenttileindex - 1) > -1) && (((currenttileindex) % Manager_script.instance.boardLength) != 0))
             {
                 currenttileindex = currenttileindex - 1;
                 playerMoved = true;
@@ -45,17 +46,15 @@ public class PlayerCube : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currenttileindex - 1 >= 0)
+            if ((currenttileindex - Manager_script.instance.boardLength) > -1)
             {
                 currenttileindex = currenttileindex - Manager_script.instance.boardLength;
                 playerMoved = true;
             }
-                
-            
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currenttileindex + 1 <= maxboardsize)
+            if ((currenttileindex + Manager_script.instance.boardLength) < (maxboardsize))
             {
                 currenttileindex = currenttileindex + Manager_script.instance.boardLength;
                 playerMoved = true;
@@ -64,6 +63,14 @@ public class PlayerCube : MonoBehaviour {
         if(playerMoved)
         {
             transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset;
+            if (Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated == true)
+            {
+                Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated = false;
+            }else
+            {
+                Manager_script.instance.Board[currenttileindex].GetComponent<Node_Script>().Activated = true;
+            }
+
             Manager_script.instance.PlayerMoved();
             playerMoved = false;
         }
