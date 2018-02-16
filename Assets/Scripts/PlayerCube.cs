@@ -7,15 +7,12 @@ public class PlayerCube : MonoBehaviour {
     // Use this for initialization
      public Material PlayerMaterial;
     private int currenttileindex;
-<<<<<<< HEAD
-    private Vector3 offset = new Vector3(0, 1, 0); 
-     
-=======
+
     private Vector3 offset = new Vector3(0, 1, 0);
     bool playerMoved = false;
 
 
->>>>>>> 40fca8234385577df4bb23e859f75a8f7f168acb
+
 
 
     void Start () {
@@ -28,7 +25,7 @@ public class PlayerCube : MonoBehaviour {
 	void Update () {
 
         int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
-
+        if (Manager_script.instance.whiteAmountText == null) { return; }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
 
