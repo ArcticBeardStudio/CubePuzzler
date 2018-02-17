@@ -27,7 +27,7 @@ public class Node_Script : MonoBehaviour {
         //ColorType = Random.Range(0, color.Length);
         ////Actualcolor = GetComponent<MeshRenderer>().materials[0];
         //Actualcolor = color[ColorType];
-        GetComponent<MeshRenderer>().material = Actualcolor;
+        GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType];
         Debug.Log(ColorType);
         //NodeType = Random.Range(0, 4);
         NodeType = 3;

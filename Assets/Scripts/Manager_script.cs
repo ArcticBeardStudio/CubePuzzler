@@ -36,8 +36,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-    public int boardWidth = 8;
-    public int boardLength = 5;
+    public int boardWidth = 4;
+    public int boardLength = 3;
+    public int startBoardWidth = 4;
+    public int startBoardLength = 3;
     int startIndex;
     int endIndex;
     int CheckpointsAmount;
@@ -86,9 +88,26 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
+        boardWidth = level + 3;
+        if(boardLength*2 >= boardWidth)
+        {
+            boardLength = boardLength + 2;
+        }
         startIndex = (int)Math.Floor((float)boardLength / 2);
         endIndex = startIndex + (boardLength * (boardWidth - 1));
-        CheckpointsAmount = 3;//HARDCODED
+        CheckpointsAmount = (int)Math.Floor((float)boardLength / 2);//HARDCODED
+        if(level < 9)
+        {
+            ColorsAmount = 3;
+        }
+        else if (level > 8 && level > 19)
+        {
+            ColorsAmount = 4;
+        }
+        else if (level > 18)
+        {
+            ColorsAmount = 5;
+        }
 
         boardScript.SetBoardSize(boardWidth, boardLength);
 
@@ -182,7 +201,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
         List<int> unsortedRandomGoals = new List<int>();
         for (int i = 0; i < (CheckpointsAmount); i++)
         {
-            int randIndex = Random.Range(0, (boardWidth * boardLength) - 1);
+            int randIndex = Random.Range(0, ((boardWidth-1) * boardLength) - 1);
             unsortedRandomGoals.Add(randIndex);
         }
         unsortedRandomGoals.Sort();

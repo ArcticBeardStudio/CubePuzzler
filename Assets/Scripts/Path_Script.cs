@@ -6,6 +6,8 @@ public class Path_Script : MonoBehaviour {
 
     // THE PATH WE WANT
     List<int> FinalPath = new List<int>();
+    List<int> neededNodes = new List<int>();
+    List<int> neededNodesIndex = new List<int>();
 
     public List<GameObject> NodeList = new List<GameObject>();
 
@@ -49,29 +51,52 @@ public class Path_Script : MonoBehaviour {
             //Debug.Log("start size: " + currentStart);
             //Debug.Log("end size: " + currentEnd);
             proposedPath = Astar(randomIndex[currentStart], randomIndex[currentEnd]);
-            
+            proposedPath.Reverse();
             mergePath(proposedPath);
 
             currentStart = currentStart + 1;
             currentEnd = currentEnd + 1;
         }
+        /*
+        while(neededNodes.Count > 0)
+        {
 
+            Manager_script.instance.Board[neededNodesIndex[0]].GetComponent<Node_Script>().ColorType = Manager_script.instance.Board[FinalPath[neededNodesIndex[1]]].GetComponent<Node_Script>().ColorType;
+            neededNodes.RemoveAt(0);
+            neededNodesIndex.RemoveAt(0);
+            neededNodesIndex.RemoveAt(0);
+        }
+        */
         return FinalPath;
     }
 
     void mergePath(List<int> newSetOfPath)
     {
-        newSetOfPath.RemoveAt(newSetOfPath.Count-1);
+        
+        newSetOfPath.RemoveAt(0);
         Debug.Log("MergePATH");
         foreach (int node in newSetOfPath)
         {
             //FinalPath.Add(node);
             if (FinalPath.Contains(node))
             {
+                int oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                neededNodes.Add(oldColorType);
+                neededNodesIndex.Add(node);
+                neededNodesIndex.Add(FinalPath.Count);
                 FinalPath.Remove(node);
             }
             else
             {
+                if(neededNodes.Count > 0)
+                {
+                    int oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                    Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType = neededNodes[0];
+                    neededNodes.RemoveAt(0);
+                    neededNodesIndex.RemoveAt(0);
+                    neededNodesIndex.RemoveAt(0);
+                    oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                }
                 FinalPath.Add(node);
             }
         }
