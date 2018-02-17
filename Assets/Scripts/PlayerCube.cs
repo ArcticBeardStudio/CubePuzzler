@@ -32,9 +32,6 @@ public class PlayerCube : MonoBehaviour {
         {
 
             Moveup();
-
-
-
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
