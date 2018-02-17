@@ -6,6 +6,8 @@ public class Path_Script : MonoBehaviour {
 
     // THE PATH WE WANT
     List<int> FinalPath = new List<int>();
+    List<int> neededNodes = new List<int>();
+    List<int> neededNodesIndex = new List<int>();
 
     public List<GameObject> NodeList = new List<GameObject>();
 
@@ -13,7 +15,8 @@ public class Path_Script : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("NEW GAME");/*
+        //Debug.Log("NEW GAME");
+        /*
         List<int> testRandom = new List<int>();
         testRandom.Add(1);
         //testRandom.Add(4);
@@ -38,7 +41,7 @@ public class Path_Script : MonoBehaviour {
 
     public List<int> NewPath(List<int> randomIndex)
     {
-        Debug.Log("NEWPATH");
+        //Debug.Log("NEWPATH");
         int currentStart = 0;
         int currentEnd = 1;
 
@@ -49,29 +52,52 @@ public class Path_Script : MonoBehaviour {
             //Debug.Log("start size: " + currentStart);
             //Debug.Log("end size: " + currentEnd);
             proposedPath = Astar(randomIndex[currentStart], randomIndex[currentEnd]);
-            
+            proposedPath.Reverse();
             mergePath(proposedPath);
 
             currentStart = currentStart + 1;
             currentEnd = currentEnd + 1;
         }
+        /*
+        while(neededNodes.Count > 0)
+        {
 
+            Manager_script.instance.Board[neededNodesIndex[0]].GetComponent<Node_Script>().ColorType = Manager_script.instance.Board[FinalPath[neededNodesIndex[1]]].GetComponent<Node_Script>().ColorType;
+            neededNodes.RemoveAt(0);
+            neededNodesIndex.RemoveAt(0);
+            neededNodesIndex.RemoveAt(0);
+        }
+        */
         return FinalPath;
     }
 
     void mergePath(List<int> newSetOfPath)
     {
-        newSetOfPath.RemoveAt(newSetOfPath.Count-1);
-        Debug.Log("MergePATH");
+        
+        newSetOfPath.RemoveAt(0);
+        //Debug.Log("MergePATH");
         foreach (int node in newSetOfPath)
         {
             //FinalPath.Add(node);
             if (FinalPath.Contains(node))
             {
+                int oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                neededNodes.Add(oldColorType);
+                neededNodesIndex.Add(node);
+                neededNodesIndex.Add(FinalPath.Count);
                 FinalPath.Remove(node);
             }
             else
             {
+                if(neededNodes.Count > 0)
+                {
+                    int oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                    Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType = neededNodes[0];
+                    neededNodes.RemoveAt(0);
+                    neededNodesIndex.RemoveAt(0);
+                    neededNodesIndex.RemoveAt(0);
+                    oldColorType = Manager_script.instance.Board[node].GetComponent<Node_Script>().ColorType;
+                }
                 FinalPath.Add(node);
             }
         }
@@ -79,7 +105,7 @@ public class Path_Script : MonoBehaviour {
 
     List<int> Astar (int start, int end)
     {
-        Debug.Log("Astar");
+        //Debug.Log("Astar");
         //List<BadGuy> badguys = new List<BadGuy>();
         List<int> closedSet = new List<int>();
         List<int> openSet = new List<int>();
@@ -167,17 +193,13 @@ public class Path_Script : MonoBehaviour {
 
     List<int> recreatePath (List<int> cameFrom, int current, int start)
     {
-        Debug.Log("RecreatePATH");
+        //Debug.Log("RecreatePATH");
         List<int> astar_Path = new List<int>();
         astar_Path.Add(current);
         while (current != start)
         {
             current = cameFrom[current];
             astar_Path.Add(current);
-        }
-        foreach (int node in FinalPath)
-        {
-            Debug.Log(node + " : recPath\n");
         }
         return astar_Path;
     }

@@ -8,50 +8,62 @@ using System.Collections.Generic;       //Allows us to use Lists.
     
     public class Manager_script : MonoBehaviour
 {
+    public Text levelText;
+
     public Text yellowAmountText;
     public Text blueAmountText;
     public Text greenAmountText;
     public Text redAmountText;
-    public Text blackAmountText;
-    public Text whiteAmountText;
+    public Text tealAmountText;
+    public Text purpleAmountText;
+    public Text orangeAmountText;
 
     public int yellowAmountLeft = 0;
     public int blueAmountLeft = 0;
     public int greenAmountLeft = 0;
     public int redAmountLeft = 0;
-    public int blackAmountLeft = 0;
-    public int whiteAmountLeft = 0;
+    public int tealAmountLeft = 0;
+    public int purpleAmountLeft = 0;
+    public int orangeAmountLeft = 0;
 
     public int yellowAmountAct = 0;
     public int blueAmountAct = 0;
     public int greenAmountAct = 0;
     public int redAmountAct = 0;
-    public int blackAmountAct = 0;
-    public int whiteAmountAct = 0;
+    public int tealAmountAct = 0;
+    public int purpleAmountAct = 0;
+    public int orangeAmountAct = 0;
 
     public GameObject debugCube;
 
     public Path_Script pathScript;
+    public GameObject playerReference;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
     public bool paused = false;
     public bool helpmenu = false;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-    public int boardWidth = 8;
-    public int boardLength = 5;
-    int startIndex;
+    public int boardWidth;
+    public int boardLength;
+    public int startBoardWidth = 4;
+    public int startBoardLength = 3;
+    public int startIndex;
     int endIndex;
-    int CheckpointsAmount;
-    int ColorsAmount;
+    public int CheckpointsAmount;
+    public int ColorsAmount;
+
+    bool canChangeLevel = true;
 
     public List<GameObject> Board = new List<GameObject>();
+    public List<GameObject> DebugList = new List<GameObject>();
     List<int> wantedPath = new List<int>();
     List<int> randomGoals = new List<int>();
 
     //Awake is always called before any Start functions
     void Awake()
     {
+        
         //Check if instance already exists
         if (instance == null)
             
@@ -77,9 +89,14 @@ using System.Collections.Generic;       //Allows us to use Lists.
     //Initializes the game for each level.
     public void InitGame()
     {
+        Random.InitState(level);
+        wantedPath.Clear();
+        randomGoals.Clear();
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         
-        Debug.Log("init");
+        Debug.Log("Init Level: " + level);
+
+        playerReference = GameObject.Find("PlayerCube");
         /*
         int first = level+1;//Random.Range(level, level+3);
         int second = Random.Range(first, first + 1);
@@ -88,9 +105,22 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
+        boardWidth = (int)Math.Floor(Math.Log10(level) * 3 * Math.Log10(level) + 4);
+        if(boardWidth/2 == boardLength && boardWidth != 4 && boardWidth != 5)
+        {
+            boardLength = boardLength + 2;
+        }
+
         startIndex = (int)Math.Floor((float)boardLength / 2);
+        playerReference.GetComponent<PlayerCube>().currenttileindex = startIndex;
         endIndex = startIndex + (boardLength * (boardWidth - 1));
-        CheckpointsAmount = 3;//HARDCODED
+        CheckpointsAmount = (int)Math.Floor((float)boardWidth / 2);//HARDCODED
+        
+        ColorsAmount = (int)Math.Floor(Math.Log10(level) * 1.3 * Math.Log10(level) + 3);
+        if(ColorsAmount > 7)
+        {
+            ColorsAmount = 7;
+        }
 
         boardScript.SetBoardSize(boardWidth, boardLength);
 
@@ -139,12 +169,14 @@ using System.Collections.Generic;       //Allows us to use Lists.
             blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
             greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
             redAmountText.text = (redAmountLeft - redAmountAct).ToString();
-            blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
-            whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
+            tealAmountText.text = (tealAmountLeft - tealAmountAct).ToString();
+            purpleAmountText.text = (purpleAmountLeft - purpleAmountAct).ToString();
+            orangeAmountText.text = (orangeAmountLeft - orangeAmountAct).ToString();
+
+            levelText.text = level.ToString();
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                boardScript.RemoveChildren();
                 //boardWidth = boardWidth + 1; //Random.Range(level, level + 3);
                 //boardLength = boardLength + 1;// Random.Range(level, level + 3);
                 //hell = new Vector3(boardWidth, 0, boardLength);
@@ -156,15 +188,34 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 //boardScript.SetBoardSize(boardWidth, boardLength);
 
                 //boardScript.SetupScene(level);
+                boardScript.RemoveChildren();
+                InitGame();
+            }
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                boardScript.RemoveChildren();
+
                 level++;
                 InitGame();
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                for (int i = 0; i < (wantedPath.Count); i++)
+                if(DebugList.Count > 0)
                 {
-                    GameObject instance = Instantiate(debugCube, new Vector3(0, 0f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
+                    for (int i = 0; i < (DebugList.Count); i++)
+                    {
+                        GameObject.Destroy(DebugList[i]);
+                    }
+                    DebugList.Clear();
+                }
+                else
+                {
+                    for (int i = 0; i < (wantedPath.Count); i++)
+                    {
+                        GameObject instance = Instantiate(debugCube, new Vector3(0, 0f, 0), Quaternion.identity) as GameObject;
+                        instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
+                        DebugList.Add(instance);
+                    }
                 }
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -200,7 +251,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
         List<int> unsortedRandomGoals = new List<int>();
         for (int i = 0; i < (CheckpointsAmount); i++)
         {
-            int randIndex = Random.Range(0, (boardWidth * boardLength) - 1);
+            int randIndex = Random.Range(0, ((boardWidth-1) * boardLength) - 1);
             unsortedRandomGoals.Add(randIndex);
         }
         unsortedRandomGoals.Sort();
@@ -217,10 +268,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
         blueAmountLeft = 0;
         greenAmountLeft = 0;
         redAmountLeft = 0;
-        blackAmountLeft = 0;
-        whiteAmountLeft = 0;
+        tealAmountLeft = 0;
+        purpleAmountLeft = 0;
+        orangeAmountLeft = 0;
 
-        foreach(int node in wantedPath)
+        yellowAmountAct = 0;
+        blueAmountAct = 0;
+        greenAmountAct = 0;
+        redAmountAct = 0;
+        tealAmountAct = 0;
+        purpleAmountAct = 0;
+        orangeAmountAct = 0;
+
+        foreach (int node in wantedPath)
         {
 
             int colorType = Board[node].GetComponent<Node_Script>().ColorType;
@@ -243,11 +303,15 @@ using System.Collections.Generic;       //Allows us to use Lists.
             }
             else if (colorType == 4)
             {
-                blackAmountLeft++;
+                tealAmountLeft++;
             }
             else if (colorType == 5)
             {
-                whiteAmountLeft++;
+                purpleAmountLeft++;
+            }
+            else if (colorType == 6)
+            {
+                orangeAmountLeft++;
             }
         }
     }
@@ -258,8 +322,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
         blueAmountAct = 0;
         greenAmountAct = 0;
         redAmountAct = 0;
-        blackAmountAct = 0;
-        whiteAmountAct = 0;
+        tealAmountAct = 0;
+        purpleAmountAct = 0;
+        orangeAmountAct = 0;
+
         for (int i = 0; i < (Board.Count); i++)
         {
             if(Board[i].GetComponent<Node_Script>().Activated)
@@ -284,13 +350,36 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 }
                 else if (colorType == 4)
                 {
-                    blackAmountAct++;
+                    tealAmountAct++;
                 }
                 else if (colorType == 5)
                 {
-                    whiteAmountAct++;
+                    purpleAmountAct++;
+                }
+                else if (colorType == 6)
+                {
+                    orangeAmountAct++;
                 }
             }
+        }
+        LevelFinished();
+    }
+
+    public void LevelFinished()
+    {
+        if(yellowAmountLeft - yellowAmountAct == 0 &&
+            blueAmountLeft - blueAmountAct == 0 &&
+            greenAmountLeft - greenAmountAct == 0 &&
+            redAmountLeft - redAmountAct == 0 &&
+            tealAmountLeft - tealAmountAct == 0 &&
+            purpleAmountLeft - purpleAmountAct == 0 &&
+            orangeAmountLeft - orangeAmountAct == 0 &&
+            playerReference.GetComponent<PlayerCube>().currenttileindex == endIndex
+            )
+        {
+            boardScript.RemoveChildren();
+            level++;
+            InitGame();
         }
     }
 }

@@ -83,8 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NodeList: []
-  widthOfBoard: 8
-  lengthOfBoard: 5
 --- !u!114 &114738597744727358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,18 +94,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf65076c0dfdcf44ad17c48821382f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 0}
   yellowAmountText: {fileID: 0}
   blueAmountText: {fileID: 0}
   greenAmountText: {fileID: 0}
   redAmountText: {fileID: 0}
-  blackAmountText: {fileID: 0}
-  whiteAmountText: {fileID: 0}
+  tealAmountText: {fileID: 0}
+  purpleAmountText: {fileID: 0}
+  orangeAmountText: {fileID: 0}
+  yellowAmountLeft: 0
+  blueAmountLeft: 0
+  greenAmountLeft: 0
+  redAmountLeft: 0
+  tealAmountLeft: 0
+  purpleAmountLeft: 0
+  orangeAmountLeft: 0
+  yellowAmountAct: 0
+  blueAmountAct: 0
+  greenAmountAct: 0
+  redAmountAct: 0
+  tealAmountAct: 0
+  purpleAmountAct: 0
+  orangeAmountAct: 0
+  debugCube: {fileID: 1754992441337378, guid: 7d2b03653facddc42aa825e029e1ba61, type: 2}
   pathScript: {fileID: 114310521690610706}
+  playerReference: {fileID: 0}
   boardScript: {fileID: 0}
   hell: {x: 0, y: 0, z: 0}
-  boardWidth: 8
-  boardLength: 5
+  paused: 0
+  helpmenu: 0
+  boardWidth: 4
+  boardLength: 3
+  startBoardWidth: 4
+  startBoardLength: 3
+  startIndex: 0
+  CheckpointsAmount: 0
+  ColorsAmount: 0
   Board: []
+  DebugList: []
 --- !u!114 &114800478777940650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,14 +155,16 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 951bfef824302194a93d045a8dcc36ed, type: 2}
   - {fileID: 2100000, guid: c63dbb279a4e6894b97b454fa2aa6b39, type: 2}
   - {fileID: 2100000, guid: b055c5869cfe22f4b8f05923ac15366f, type: 2}
-  - {fileID: 2100000, guid: bba320c101ecd3244971ce8570cc0a5f, type: 2}
-  - {fileID: 2100000, guid: 045b2a5ca82b53947bdb360b8d28fef7, type: 2}
+  - {fileID: 2100000, guid: a83e5d07e7f031e47aaa1cfa0e771530, type: 2}
+  - {fileID: 2100000, guid: f3fe33f4ab492ac47911028a9c42fdb2, type: 2}
+  - {fileID: 2100000, guid: 58bbc94c3cba0994db7190db364cb585, type: 2}
   - {fileID: 2100000, guid: 28cb3030875269547a921456f6305c24, type: 2}
   - {fileID: 2100000, guid: a0f0ca0686f427546916e559ab159e4b, type: 2}
   - {fileID: 2100000, guid: d1912e6d219184f4c8dea14b44b7aab3, type: 2}
   - {fileID: 2100000, guid: bb98116c55aba9b44a1d680416f06897, type: 2}
-  - {fileID: 2100000, guid: be753bd0704551648bc8a02b0e4acda0, type: 2}
-  - {fileID: 2100000, guid: 1c0edda5156cddc4a903a0adb7a7287a, type: 2}
+  - {fileID: 2100000, guid: f4263849394448c49ae95d29fba19424, type: 2}
+  - {fileID: 2100000, guid: d5e919e8280667a41a2b81f0c4dbb27c, type: 2}
+  - {fileID: 2100000, guid: 1b490f006a53a4e40b3cd9429639fc19, type: 2}
   outerWallTiles:
   - {fileID: 1527829599639978, guid: 89e83e05210b60b4496540a71f8c9429, type: 2}
   Map: {fileID: 0}

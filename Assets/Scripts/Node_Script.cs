@@ -27,8 +27,8 @@ public class Node_Script : MonoBehaviour {
         //ColorType = Random.Range(0, color.Length);
         ////Actualcolor = GetComponent<MeshRenderer>().materials[0];
         //Actualcolor = color[ColorType];
-        GetComponent<MeshRenderer>().material = Actualcolor;
-        Debug.Log(ColorType);
+        GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType];
+        //Debug.Log(ColorType);
         //NodeType = Random.Range(0, 4);
         NodeType = 3;
     }
@@ -41,7 +41,7 @@ public class Node_Script : MonoBehaviour {
 	void Update () {
 		if (Activated && !colorChanged)
         {
-            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType + 6];
+            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType + 7];
             colorChanged = true;
         }else if(!Activated && colorChanged)
         {
