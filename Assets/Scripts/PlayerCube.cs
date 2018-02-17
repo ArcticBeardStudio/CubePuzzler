@@ -46,13 +46,9 @@ public class PlayerCube : MonoBehaviour {
         {
 
             Moveup();
-<<<<<<< HEAD
+
             moveup = false;
 
-
-
-=======
->>>>>>> 1cb9db8a70b0aa91e998f4cacc575682af81f699
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) || movedown)
         {
