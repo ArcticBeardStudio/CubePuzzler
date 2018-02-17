@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerCube : MonoBehaviour {
@@ -7,8 +8,12 @@ public class PlayerCube : MonoBehaviour {
     // Use this for initialization
      public Material PlayerMaterial;
     private int currenttileindex;
-    int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
+    int maxboardsize = 0; 
     int desiredMove = 0;
+    bool moveleft = false;
+    bool moveright = false;
+    bool moveup = false;
+    bool movedown = false;
 
     private Vector3 offset = new Vector3(0, 1, 0);
     bool playerMoved = false;
@@ -19,8 +24,10 @@ public class PlayerCube : MonoBehaviour {
 
     void Start () {
         //PlayerMaterial = 
+        maxboardsize =  Manager_script.instance.boardWidth* Manager_script.instance.boardLength;
         GetComponent<MeshRenderer>().material = PlayerMaterial;
         currenttileindex = 2;
+
     }
 	
 	// Update is called once per frame
@@ -29,26 +36,29 @@ public class PlayerCube : MonoBehaviour {
         maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
         desiredMove = 0;
         if (Manager_script.instance.whiteAmountText == null) { return; }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || moveup)
         {
 
             Moveup();
+            moveup = false;
 
 
 
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || movedown)
         {
             Movedown();
-
+            movedown = false;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow)  || moveleft)
         {
             Moveleft();
+            moveleft = false;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow)  || moveright)
         {
             Moveright();
+            moveright = false;
         }
         if(playerMoved)
         {
@@ -149,4 +159,23 @@ public class PlayerCube : MonoBehaviour {
             playerMoved = true;
         }
     }
+    public void Movementdesire(int direction)
+    {
+        switch(direction)
+        {
+            case 0:
+                movedown = true;
+                break;
+            case 1:
+                moveup = true;
+                break;
+            case 2:
+                moveleft = true;
+                break;
+            case 3:
+                moveright = true;
+                break;
+        }
+    }
+
 }
