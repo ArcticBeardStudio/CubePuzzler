@@ -140,7 +140,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
             blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
             whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
 
-            if (Input.GetKey(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 boardScript.RemoveChildren();
                 //boardWidth = boardWidth + 1; //Random.Range(level, level + 3);
@@ -157,7 +157,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 level++;
                 InitGame();
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 for (int i = 0; i < (wantedPath.Count); i++)
                 {
@@ -165,6 +165,13 @@ using System.Collections.Generic;       //Allows us to use Lists.
                     instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
+
+                temp.SetActive(!temp.activeSelf);
+            }
+
         }
         
     }
