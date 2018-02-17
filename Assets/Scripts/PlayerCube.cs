@@ -6,7 +6,7 @@ public class PlayerCube : MonoBehaviour {
 
     // Use this for initialization
      public Material PlayerMaterial;
-    private int currenttileindex;
+    public int currenttileindex;
     int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
     int desiredMove = 0;
 
@@ -20,7 +20,6 @@ public class PlayerCube : MonoBehaviour {
     void Start () {
         //PlayerMaterial = 
         GetComponent<MeshRenderer>().material = PlayerMaterial;
-        currenttileindex = 2;
     }
 	
 	// Update is called once per frame

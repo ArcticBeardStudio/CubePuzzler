@@ -15,7 +15,8 @@ public class Path_Script : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("NEW GAME");/*
+        //Debug.Log("NEW GAME");
+        /*
         List<int> testRandom = new List<int>();
         testRandom.Add(1);
         //testRandom.Add(4);
@@ -40,7 +41,7 @@ public class Path_Script : MonoBehaviour {
 
     public List<int> NewPath(List<int> randomIndex)
     {
-        Debug.Log("NEWPATH");
+        //Debug.Log("NEWPATH");
         int currentStart = 0;
         int currentEnd = 1;
 
@@ -74,7 +75,7 @@ public class Path_Script : MonoBehaviour {
     {
         
         newSetOfPath.RemoveAt(0);
-        Debug.Log("MergePATH");
+        //Debug.Log("MergePATH");
         foreach (int node in newSetOfPath)
         {
             //FinalPath.Add(node);
@@ -104,7 +105,7 @@ public class Path_Script : MonoBehaviour {
 
     List<int> Astar (int start, int end)
     {
-        Debug.Log("Astar");
+        //Debug.Log("Astar");
         //List<BadGuy> badguys = new List<BadGuy>();
         List<int> closedSet = new List<int>();
         List<int> openSet = new List<int>();
@@ -192,17 +193,13 @@ public class Path_Script : MonoBehaviour {
 
     List<int> recreatePath (List<int> cameFrom, int current, int start)
     {
-        Debug.Log("RecreatePATH");
+        //Debug.Log("RecreatePATH");
         List<int> astar_Path = new List<int>();
         astar_Path.Add(current);
         while (current != start)
         {
             current = cameFrom[current];
             astar_Path.Add(current);
-        }
-        foreach (int node in FinalPath)
-        {
-            Debug.Log(node + " : recPath\n");
         }
         return astar_Path;
     }

@@ -32,28 +32,31 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public GameObject debugCube;
 
     public Path_Script pathScript;
+    public GameObject playerReference;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
     public bool paused = false;
     public bool helpmenu = false;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-    public int boardWidth = 4;
-    public int boardLength = 3;
+    public int boardWidth;
+    public int boardLength;
     public int startBoardWidth = 4;
     public int startBoardLength = 3;
-    int startIndex;
+    public int startIndex;
     int endIndex;
     int CheckpointsAmount;
     int ColorsAmount;
 
     public List<GameObject> Board = new List<GameObject>();
+    public List<GameObject> DebugList = new List<GameObject>();
     List<int> wantedPath = new List<int>();
     List<int> randomGoals = new List<int>();
 
     //Awake is always called before any Start functions
     void Awake()
     {
+        
         //Check if instance already exists
         if (instance == null)
             
@@ -79,9 +82,14 @@ using System.Collections.Generic;       //Allows us to use Lists.
     //Initializes the game for each level.
     public void InitGame()
     {
+        Random.InitState(level);
+        wantedPath.Clear();
+        randomGoals.Clear();
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         
-        Debug.Log("init");
+        Debug.Log("Init Level: " + level);
+
+        playerReference = GameObject.Find("PlayerCube");
         /*
         int first = level+1;//Random.Range(level, level+3);
         int second = Random.Range(first, first + 1);
@@ -91,11 +99,12 @@ using System.Collections.Generic;       //Allows us to use Lists.
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
         boardWidth = level + 3;
-        if(boardLength*2 >= boardWidth)
+        if(boardWidth/2 == boardLength && boardWidth != 4 && boardWidth != 5)
         {
             boardLength = boardLength + 2;
         }
         startIndex = (int)Math.Floor((float)boardLength / 2);
+        playerReference.GetComponent<PlayerCube>().currenttileindex = startIndex;
         endIndex = startIndex + (boardLength * (boardWidth - 1));
         CheckpointsAmount = (int)Math.Floor((float)boardLength / 2);//HARDCODED
         if(level < 9)
@@ -163,7 +172,6 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                boardScript.RemoveChildren();
                 //boardWidth = boardWidth + 1; //Random.Range(level, level + 3);
                 //boardLength = boardLength + 1;// Random.Range(level, level + 3);
                 //hell = new Vector3(boardWidth, 0, boardLength);
@@ -175,15 +183,34 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 //boardScript.SetBoardSize(boardWidth, boardLength);
 
                 //boardScript.SetupScene(level);
+                boardScript.RemoveChildren();
+                InitGame();
+            }
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                boardScript.RemoveChildren();
+
                 level++;
                 InitGame();
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                for (int i = 0; i < (wantedPath.Count); i++)
+                if(DebugList.Count > 0)
                 {
-                    GameObject instance = Instantiate(debugCube, new Vector3(0, 0f, 0), Quaternion.identity) as GameObject;
-                    instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
+                    for (int i = 0; i < (DebugList.Count); i++)
+                    {
+                        GameObject.Destroy(DebugList[i]);
+                    }
+                    DebugList.Clear();
+                }
+                else
+                {
+                    for (int i = 0; i < (wantedPath.Count); i++)
+                    {
+                        GameObject instance = Instantiate(debugCube, new Vector3(0, 0f, 0), Quaternion.identity) as GameObject;
+                        instance.transform.position = Board[wantedPath[i]].transform.position + Vector3.up;
+                        DebugList.Add(instance);
+                    }
                 }
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -239,7 +266,14 @@ using System.Collections.Generic;       //Allows us to use Lists.
         blackAmountLeft = 0;
         whiteAmountLeft = 0;
 
-        foreach(int node in wantedPath)
+        yellowAmountAct = 0;
+        blueAmountAct = 0;
+        greenAmountAct = 0;
+        redAmountAct = 0;
+        blackAmountAct = 0;
+        whiteAmountAct = 0;
+
+        foreach (int node in wantedPath)
         {
 
             int colorType = Board[node].GetComponent<Node_Script>().ColorType;
@@ -310,6 +344,23 @@ using System.Collections.Generic;       //Allows us to use Lists.
                     whiteAmountAct++;
                 }
             }
+        }
+        LevelFinished();
+    }
+
+    public void LevelFinished()
+    {
+        if(yellowAmountLeft - yellowAmountAct == 0 &&
+            blueAmountLeft - blueAmountAct == 0 &&
+            greenAmountLeft - greenAmountAct == 0 &&
+            redAmountLeft - redAmountAct == 0 &&
+            blackAmountLeft - blackAmountAct == 0 &&
+            whiteAmountLeft - whiteAmountAct == 0 && playerReference.GetComponent<PlayerCube>().currenttileindex == endIndex
+            )
+        {
+            boardScript.RemoveChildren();
+            level++;
+            InitGame();
         }
     }
 }
