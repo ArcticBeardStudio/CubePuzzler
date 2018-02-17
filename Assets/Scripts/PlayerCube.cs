@@ -7,6 +7,8 @@ public class PlayerCube : MonoBehaviour {
     // Use this for initialization
      public Material PlayerMaterial;
     private int currenttileindex;
+    int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
+    int desiredMove = 0;
 
     private Vector3 offset = new Vector3(0, 1, 0);
     bool playerMoved = false;
@@ -24,45 +26,29 @@ public class PlayerCube : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
-        int desiredMove = 0;
+        maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
+        desiredMove = 0;
         if (Manager_script.instance.whiteAmountText == null) { return; }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            
-            if ((currenttileindex + 1) < (maxboardsize) && (((currenttileindex + 1) % Manager_script.instance.boardLength) != 0))
-            {
 
-                desiredMove = currenttileindex + 1;
-                playerMoved = true;
-            }
-                
+            Moveup();
+
+
 
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (((currenttileindex - 1) > -1) && (((currenttileindex) % Manager_script.instance.boardLength) != 0))
-            {
-                desiredMove = currenttileindex - 1;
-                playerMoved = true;
-            }
+            Movedown();
 
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if ((currenttileindex - Manager_script.instance.boardLength) > -1)
-            {
-                desiredMove = currenttileindex - Manager_script.instance.boardLength;
-                playerMoved = true;
-            }
+            Moveleft();
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if ((currenttileindex + Manager_script.instance.boardLength) < (maxboardsize))
-            {
-                desiredMove = currenttileindex + Manager_script.instance.boardLength;
-                playerMoved = true;
-            }
+            Moveright();
         }
         if(playerMoved)
         {
@@ -96,6 +82,10 @@ public class PlayerCube : MonoBehaviour {
             {
                 playerCanMove = true;
             }
+            if (Manager_script.instance.paused == true)
+            {
+                playerCanMove = false;
+            }
             if (playerCanMove) //Can move
             {
                 currenttileindex = desiredMove;
@@ -114,12 +104,49 @@ public class PlayerCube : MonoBehaviour {
             }
             playerMoved = false;
         }
-        transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset;
+        if (transform != null )
+        {
+            if (currenttileindex < Manager_script.instance.Board.Count) { transform.position = Manager_script.instance.Board[currenttileindex].transform.position + offset; }
+            
+        }
+        
 
     }
     void Animate()
     {
 
     }
+    public void Moveup()
+    {
+        if ((currenttileindex + 1) < (maxboardsize) && (((currenttileindex + 1) % Manager_script.instance.boardLength) != 0))
+        {
 
+            desiredMove = currenttileindex + 1;
+            playerMoved = true;
+        }
+    }
+    public void Movedown()
+    {
+        if (((currenttileindex - 1) > -1) && (((currenttileindex) % Manager_script.instance.boardLength) != 0))
+        {
+            desiredMove = currenttileindex - 1;
+            playerMoved = true;
+        }
+    }
+    public void Moveleft()
+    {
+        if ((currenttileindex - Manager_script.instance.boardLength) > -1)
+        {
+            desiredMove = currenttileindex - Manager_script.instance.boardLength;
+            playerMoved = true;
+        }
+    }
+    public void Moveright()
+    {
+        if ((currenttileindex + Manager_script.instance.boardLength) < (maxboardsize))
+        {
+            desiredMove = currenttileindex + Manager_script.instance.boardLength;
+            playerMoved = true;
+        }
+    }
 }
