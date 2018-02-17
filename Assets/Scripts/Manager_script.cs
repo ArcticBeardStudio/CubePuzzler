@@ -129,7 +129,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
         pathScript.NodeList = Board;
         GenerateRandomGoals();
         
-        hell = new Vector3(boardWidth, 0, boardLength);
+        hell = new Vector3(boardWidth-1, 0, boardLength);
         hell = hell / 2;
         wantedPath = pathScript.NewPath(randomGoals);
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = hell + (GameObject.FindGameObjectWithTag("MainCamera").transform.forward * -1) * (boardWidth);
@@ -188,8 +188,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 //boardScript.SetBoardSize(boardWidth, boardLength);
 
                 //boardScript.SetupScene(level);
-                boardScript.RemoveChildren();
-                InitGame();
+                Resetlevel();
             }
             if (Input.GetKeyDown(KeyCode.N))
             {
@@ -381,5 +380,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
             level++;
             InitGame();
         }
+    }
+    public void Resetlevel()
+    {
+        boardScript.RemoveChildren();
+        InitGame();
     }
 }

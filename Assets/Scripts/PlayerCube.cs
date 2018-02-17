@@ -9,7 +9,7 @@ public class PlayerCube : MonoBehaviour {
      public Material PlayerMaterial;
 
     public int currenttileindex;
-    int maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
+    int maxboardsize = 0;// Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
 
     int desiredMove = 0;
     bool moveleft = false;

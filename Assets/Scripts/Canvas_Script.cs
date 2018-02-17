@@ -22,4 +22,8 @@ public class Canvas_Script : MonoBehaviour {
 	void Update () {
 		
 	}
+    public void Resetlevel()
+    {
+        Manager_script.instance.Resetlevel();
+    }
 }
