@@ -35,6 +35,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
+    public bool paused = false;
+    public bool helpmenu = false;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth = 8;
     public int boardLength = 5;
@@ -167,9 +169,25 @@ using System.Collections.Generic;       //Allows us to use Lists.
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
 
+                if (paused && helpmenu)
+                {
+                    GameObject temphelp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Helppanel").gameObject;
+                    temphelp.SetActive(!temphelp.activeSelf);
+                    
+                    temphelp.transform.parent.Find("Panel").Find("Save").gameObject.SetActive(true);
+                    temphelp.transform.parent.Find("Panel").Find("Main_menu").gameObject.SetActive(true);
+                    temphelp.transform.parent.Find("Panel").Find("Help").gameObject.SetActive(true);
+                    helpmenu = !helpmenu;
+                    return;
+                }
+
+                GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
+                paused = !paused;
                 temp.SetActive(!temp.activeSelf);
+
+                
+                
             }
 
         }

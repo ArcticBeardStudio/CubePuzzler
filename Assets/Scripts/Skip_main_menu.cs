@@ -6,6 +6,7 @@ public class Skip_main_menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Manager_script.instance.paused = false;
         SceneManager_Script.instance.ChangeLevel("CubePuzzler_01");
         //while (true)
         //{

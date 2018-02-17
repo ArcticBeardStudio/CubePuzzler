@@ -21,6 +21,7 @@ public class ButtonInteractions_Script : MonoBehaviour {
     public void Startupnewlevel()
     {
         SceneManager_Script.instance.ChangeLevel("CubePuzzler_01");
+        Manager_script.instance.paused = false;
         while(true)
         {
             if (SceneManager_Script.instance.Currentlevelinformation() == "Main_menu")
@@ -39,6 +40,25 @@ public class ButtonInteractions_Script : MonoBehaviour {
         //Manager_script.instance.blackAmountText = Canvas.transform.GetChild(4).GetComponent<Text>();
         //Manager_script.instance.whiteAmountText = Canvas.transform.GetChild(5).GetComponent<Text>();
         //Manager_script.instance.InitGame();
+    }
+    public void Mainmenu()
+    {
+        Manager_script.instance.boardScript.RemoveChildren();
+        SceneManager_Script.instance.ChangeLevel("Main_menu");
+    }
+    public void Starthelpmenu()
+    {
+        transform.parent.Find("Save").gameObject.SetActive(false);
+        transform.parent.Find("Main_menu").gameObject.SetActive(false);
+        transform.parent.parent.Find("Helppanel").gameObject.SetActive(true);
+        gameObject.SetActive(false);
+        Manager_script.instance.helpmenu = true;
+        
+
+    }
+    public void Closehelpmenu()
+    {
+
     }
 
 }
