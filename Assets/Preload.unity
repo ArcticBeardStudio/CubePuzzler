@@ -193,30 +193,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1678829815056206, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1653005666175098, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114738597744727358, guid: 6de6834f24be9954cb812a7c903ff908,
-        type: 2}
-      propertyPath: debugCube
-      value: 
-      objectReference: {fileID: 1754992441337378, guid: 7d2b03653facddc42aa825e029e1ba61,
-        type: 2}
-    - target: {fileID: 114738597744727358, guid: 6de6834f24be9954cb812a7c903ff908,
-        type: 2}
-      propertyPath: boardWidth
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114738597744727358, guid: 6de6834f24be9954cb812a7c903ff908,
-        type: 2}
-      propertyPath: boardLength
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6de6834f24be9954cb812a7c903ff908, type: 2}
   m_IsPrefabParent: 0

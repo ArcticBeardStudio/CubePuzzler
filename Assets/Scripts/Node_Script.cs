@@ -41,7 +41,7 @@ public class Node_Script : MonoBehaviour {
 	void Update () {
 		if (Activated && !colorChanged)
         {
-            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType + 6];
+            GetComponent<MeshRenderer>().material = Manager_script.instance.boardScript.color[ColorType + 7];
             colorChanged = true;
         }else if(!Activated && colorChanged)
         {

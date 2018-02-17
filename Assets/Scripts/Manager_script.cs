@@ -8,26 +8,31 @@ using System.Collections.Generic;       //Allows us to use Lists.
     
     public class Manager_script : MonoBehaviour
 {
+    public Text levelText;
+
     public Text yellowAmountText;
     public Text blueAmountText;
     public Text greenAmountText;
     public Text redAmountText;
-    public Text blackAmountText;
-    public Text whiteAmountText;
+    public Text tealAmountText;
+    public Text purpleAmountText;
+    public Text orangeAmountText;
 
     public int yellowAmountLeft = 0;
     public int blueAmountLeft = 0;
     public int greenAmountLeft = 0;
     public int redAmountLeft = 0;
-    public int blackAmountLeft = 0;
-    public int whiteAmountLeft = 0;
+    public int tealAmountLeft = 0;
+    public int purpleAmountLeft = 0;
+    public int orangeAmountLeft = 0;
 
     public int yellowAmountAct = 0;
     public int blueAmountAct = 0;
     public int greenAmountAct = 0;
     public int redAmountAct = 0;
-    public int blackAmountAct = 0;
-    public int whiteAmountAct = 0;
+    public int tealAmountAct = 0;
+    public int purpleAmountAct = 0;
+    public int orangeAmountAct = 0;
 
     public GameObject debugCube;
 
@@ -45,8 +50,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public int startBoardLength = 3;
     public int startIndex;
     int endIndex;
-    int CheckpointsAmount;
-    int ColorsAmount;
+    public int CheckpointsAmount;
+    public int ColorsAmount;
+
+    bool canChangeLevel = true;
 
     public List<GameObject> Board = new List<GameObject>();
     public List<GameObject> DebugList = new List<GameObject>();
@@ -98,26 +105,21 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
-        boardWidth = level + 3;
+        boardWidth = (int)Math.Floor(Math.Log10(level) * 3 * Math.Log10(level) + 4);
         if(boardWidth/2 == boardLength && boardWidth != 4 && boardWidth != 5)
         {
             boardLength = boardLength + 2;
         }
+
         startIndex = (int)Math.Floor((float)boardLength / 2);
         playerReference.GetComponent<PlayerCube>().currenttileindex = startIndex;
         endIndex = startIndex + (boardLength * (boardWidth - 1));
-        CheckpointsAmount = (int)Math.Floor((float)boardLength / 2);//HARDCODED
-        if(level < 9)
+        CheckpointsAmount = (int)Math.Floor((float)boardWidth / 2);//HARDCODED
+        
+        ColorsAmount = (int)Math.Floor(Math.Log10(level) * 1.3 * Math.Log10(level) + 3);
+        if(ColorsAmount > 7)
         {
-            ColorsAmount = 3;
-        }
-        else if (level > 8 && level > 19)
-        {
-            ColorsAmount = 4;
-        }
-        else if (level > 18)
-        {
-            ColorsAmount = 5;
+            ColorsAmount = 7;
         }
 
         boardScript.SetBoardSize(boardWidth, boardLength);
@@ -167,8 +169,11 @@ using System.Collections.Generic;       //Allows us to use Lists.
             blueAmountText.text = (blueAmountLeft - blueAmountAct).ToString();
             greenAmountText.text = (greenAmountLeft - greenAmountAct).ToString();
             redAmountText.text = (redAmountLeft - redAmountAct).ToString();
-            blackAmountText.text = (blackAmountLeft - blackAmountAct).ToString();
-            whiteAmountText.text = (whiteAmountLeft - whiteAmountAct).ToString();
+            tealAmountText.text = (tealAmountLeft - tealAmountAct).ToString();
+            purpleAmountText.text = (purpleAmountLeft - purpleAmountAct).ToString();
+            orangeAmountText.text = (orangeAmountLeft - orangeAmountAct).ToString();
+
+            levelText.text = level.ToString();
 
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -263,15 +268,17 @@ using System.Collections.Generic;       //Allows us to use Lists.
         blueAmountLeft = 0;
         greenAmountLeft = 0;
         redAmountLeft = 0;
-        blackAmountLeft = 0;
-        whiteAmountLeft = 0;
+        tealAmountLeft = 0;
+        purpleAmountLeft = 0;
+        orangeAmountLeft = 0;
 
         yellowAmountAct = 0;
         blueAmountAct = 0;
         greenAmountAct = 0;
         redAmountAct = 0;
-        blackAmountAct = 0;
-        whiteAmountAct = 0;
+        tealAmountAct = 0;
+        purpleAmountAct = 0;
+        orangeAmountAct = 0;
 
         foreach (int node in wantedPath)
         {
@@ -296,11 +303,15 @@ using System.Collections.Generic;       //Allows us to use Lists.
             }
             else if (colorType == 4)
             {
-                blackAmountLeft++;
+                tealAmountLeft++;
             }
             else if (colorType == 5)
             {
-                whiteAmountLeft++;
+                purpleAmountLeft++;
+            }
+            else if (colorType == 6)
+            {
+                orangeAmountLeft++;
             }
         }
     }
@@ -311,8 +322,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
         blueAmountAct = 0;
         greenAmountAct = 0;
         redAmountAct = 0;
-        blackAmountAct = 0;
-        whiteAmountAct = 0;
+        tealAmountAct = 0;
+        purpleAmountAct = 0;
+        orangeAmountAct = 0;
+
         for (int i = 0; i < (Board.Count); i++)
         {
             if(Board[i].GetComponent<Node_Script>().Activated)
@@ -337,11 +350,15 @@ using System.Collections.Generic;       //Allows us to use Lists.
                 }
                 else if (colorType == 4)
                 {
-                    blackAmountAct++;
+                    tealAmountAct++;
                 }
                 else if (colorType == 5)
                 {
-                    whiteAmountAct++;
+                    purpleAmountAct++;
+                }
+                else if (colorType == 6)
+                {
+                    orangeAmountAct++;
                 }
             }
         }
@@ -354,8 +371,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
             blueAmountLeft - blueAmountAct == 0 &&
             greenAmountLeft - greenAmountAct == 0 &&
             redAmountLeft - redAmountAct == 0 &&
-            blackAmountLeft - blackAmountAct == 0 &&
-            whiteAmountLeft - whiteAmountAct == 0 && playerReference.GetComponent<PlayerCube>().currenttileindex == endIndex
+            tealAmountLeft - tealAmountAct == 0 &&
+            purpleAmountLeft - purpleAmountAct == 0 &&
+            orangeAmountLeft - orangeAmountAct == 0 &&
+            playerReference.GetComponent<PlayerCube>().currenttileindex == endIndex
             )
         {
             boardScript.RemoveChildren();

@@ -27,7 +27,7 @@ public class PlayerCube : MonoBehaviour {
 
         maxboardsize = Manager_script.instance.boardWidth * Manager_script.instance.boardLength;
         desiredMove = 0;
-        if (Manager_script.instance.whiteAmountText == null) { return; }
+        if (Manager_script.instance.orangeAmountText == null) { return; }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
 
@@ -69,11 +69,15 @@ public class PlayerCube : MonoBehaviour {
             {
                 playerCanMove = true;
             }
-            else if (colorType == 4 && (Manager_script.instance.blackAmountLeft - Manager_script.instance.blackAmountAct - 1) > -1)
+            else if (colorType == 4 && (Manager_script.instance.tealAmountLeft - Manager_script.instance.tealAmountAct - 1) > -1)
             {
                 playerCanMove = true;
             }
-            else if (colorType == 5 && (Manager_script.instance.whiteAmountLeft - Manager_script.instance.whiteAmountAct - 1) > -1)
+            else if (colorType == 5 && (Manager_script.instance.purpleAmountLeft - Manager_script.instance.purpleAmountAct - 1) > -1)
+            {
+                playerCanMove = true;
+            }
+            else if (colorType == 6 && (Manager_script.instance.orangeAmountLeft - Manager_script.instance.orangeAmountAct - 1) > -1)
             {
                 playerCanMove = true;
             }
