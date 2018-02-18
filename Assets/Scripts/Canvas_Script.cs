@@ -26,4 +26,24 @@ public class Canvas_Script : MonoBehaviour {
     {
         Manager_script.instance.Resetlevel();
     }
+    public void Optionchange()
+    {
+        ShowDirectionButtons(Manager_script.instance.showbuttons);
+    }
+    public void ShowDirectionButtons(bool state)
+    {
+        transform.Find("Movedown").gameObject.SetActive(state);
+        transform.Find("Moveup").gameObject.SetActive(state);
+        transform.Find("Moveleft").gameObject.SetActive(state);
+        transform.Find("Moveright").gameObject.SetActive(state);
+    }
+    public void Openmenu()
+    {
+        if (Manager_script.instance.optionsmenu || Manager_script.instance.helpmenu) { return; }
+
+        Manager_script.instance.paused = !Manager_script.instance.paused;
+        GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
+
+        temp.SetActive(!temp.activeSelf);
+    }
 }

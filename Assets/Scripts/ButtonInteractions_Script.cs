@@ -48,8 +48,10 @@ public class ButtonInteractions_Script : MonoBehaviour {
     }
     public void Starthelpmenu()
     {
+
         transform.parent.Find("Save").gameObject.SetActive(false);
         transform.parent.Find("Main_menu").gameObject.SetActive(false);
+        transform.parent.Find("options").gameObject.SetActive(false);
         transform.parent.parent.Find("Helppanel").gameObject.SetActive(true);
         gameObject.SetActive(false);
         Manager_script.instance.helpmenu = true;
@@ -58,7 +60,69 @@ public class ButtonInteractions_Script : MonoBehaviour {
     }
     public void Closehelpmenu()
     {
+        GameObject temphelp = GameObject.Find("Panel").gameObject;
+        temphelp.transform.Find("Save").gameObject.SetActive(true);
+        temphelp.transform.Find("Main_menu").gameObject.SetActive(true);
+        temphelp.transform.Find("Help").gameObject.SetActive(true);
+        temphelp.transform.Find("options").gameObject.SetActive(true);
+        temphelp.transform.parent.Find("Helppanel").gameObject.SetActive(false);
+        Manager_script.instance.helpmenu = false;
+        //transform.parent.Find("Save").gameObject.SetActive(true);
+        //transform.parent.Find("Main_menu").gameObject.SetActive(true);
+        //transform.parent.Find("options").gameObject.SetActive(true);
+        //transform.parent.parent.Find("Helppanel").gameObject.SetActive(false);
+        //gameObject.SetActive(true);
+        //Manager_script.instance.helpmenu = false;
+    }
+    public void Optionmenu()
+    {
+
+        GameObject temphelp = GameObject.Find("Panel").gameObject;
+        Manager_script.instance.optionsmenu = true;
+
+
+        temphelp.transform.Find("Save").gameObject.SetActive(false);
+        temphelp.transform.Find("Main_menu").gameObject.SetActive(false);
+        temphelp.transform.Find("Help").gameObject.SetActive(false);
+        temphelp.transform.Find("options").gameObject.SetActive(false);
+        temphelp.transform.parent.Find("OptionPanel").gameObject.SetActive(true);
+        
+    }
+    public void Closeoptionmenu()
+    {
+       
+        GameObject temphelp = GameObject.Find("Panel").gameObject;
+        Manager_script.instance.optionsmenu = false;
+
+
+        temphelp.transform.Find("Save").gameObject.SetActive(true);
+        temphelp.transform.Find("Main_menu").gameObject.SetActive(true);
+        temphelp.transform.Find("Help").gameObject.SetActive(true);
+        temphelp.transform.Find("options").gameObject.SetActive(true);
+        temphelp.transform.parent.Find("OptionPanel").gameObject.SetActive(false);
+    }
+    public void Openmenu()
+    {
+        if (Manager_script.instance.optionsmenu || Manager_script.instance.helpmenu) { return; }
+
+        Manager_script.instance.paused = !Manager_script.instance.paused;
+        GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
+        temp.transform.parent.Find("Menu").gameObject.GetComponent<Button>().gameObject.SetActive(false);
+        temp.transform.parent.Find("Reset").gameObject.GetComponent<Button>().gameObject.SetActive(false);
+        temp.transform.parent.transform.GetComponent<Canvas_Script>().ShowDirectionButtons(false);
+        temp.SetActive(!temp.activeSelf);
+    }
+    public void Closemenu()
+    {
+        GameObject temphelp = GameObject.Find("Canvas").gameObject;
+        temphelp.transform.Find("Menu").gameObject.GetComponent<Button>().gameObject.SetActive(true);
+        temphelp.transform.Find("Reset").gameObject.GetComponent<Button>().gameObject.SetActive(true);
+        temphelp.GetComponent<Canvas_Script>().ShowDirectionButtons(true);
+        temphelp.transform.Find("Panel").gameObject.SetActive(false);
+        Manager_script.instance.paused = !Manager_script.instance.paused;
+
 
     }
+
 
 }

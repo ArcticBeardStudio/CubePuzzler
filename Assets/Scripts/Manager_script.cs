@@ -8,6 +8,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
     
     public class Manager_script : MonoBehaviour
 {
+    public enum Movemment
+    {
+        allmovement, buttons,touch,touchandbuttons,keyboard
+    }
     public Text levelText;
 
     public Text yellowAmountText;
@@ -37,12 +41,16 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public GameObject debugCube;
 
     public Path_Script pathScript;
+
+    public Movemment movementoptions;
+    public bool showbuttons;
     public GameObject playerReference;
     public static Manager_script instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     public Map_script boardScript;                       //Store a reference to our BoardManager which will set up the level.
     public Vector3 hell;
     public bool paused = false;
     public bool helpmenu = false;
+    public bool optionsmenu = false;
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth;
     public int boardLength;
@@ -66,10 +74,12 @@ using System.Collections.Generic;       //Allows us to use Lists.
         
         //Check if instance already exists
         if (instance == null)
-            
+        {
             //if not, set instance to this
             instance = this;
-
+            movementoptions = Movemment.allmovement;
+        }
+      
 
         //If instance already exists and it's not this:
         else if (instance != this)
@@ -222,14 +232,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
                 if (paused && helpmenu)
                 {
-                    GameObject temphelp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Helppanel").gameObject;
-                    temphelp.SetActive(!temphelp.activeSelf);
-                    
-                    temphelp.transform.parent.Find("Panel").Find("Save").gameObject.SetActive(true);
-                    temphelp.transform.parent.Find("Panel").Find("Main_menu").gameObject.SetActive(true);
-                    temphelp.transform.parent.Find("Panel").Find("Help").gameObject.SetActive(true);
-                    helpmenu = !helpmenu;
+                    //GameObject temphelp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Helppanel").gameObject;
+
+                    GameObject.FindGameObjectWithTag("Canvas").transform.Find("Reset").gameObject.GetComponent<ButtonInteractions_Script>().Closehelpmenu();
+                   
+                    //helpmenu = !helpmenu;
                     return;
+                }
+                else if (paused && optionsmenu)
+                {
+                    //GameObject temphelp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("OptionPanel").gameObject;
+                    //temphelp.SetActive(!temphelp.activeSelf);
+                    GameObject.FindGameObjectWithTag("Canvas").transform.Find("Reset").GetComponent<ButtonInteractions_Script>().Closeoptionmenu();
+                    //optionsmenu = !optionsmenu;
                 }
 
                 GameObject temp = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Panel").gameObject;
@@ -385,5 +400,31 @@ using System.Collections.Generic;       //Allows us to use Lists.
     {
         boardScript.RemoveChildren();
         InitGame();
+    }
+    public void Settings(Movemment trueornot)
+    {
+        switch (trueornot)
+        {
+            case Movemment.allmovement:
+                
+                break;
+            case Movemment.buttons:
+                
+                break;
+            case Movemment.keyboard:
+
+                break;
+            case Movemment.touch:
+
+                break;
+            case Movemment.touchandbuttons:
+
+                break;
+        }
+        movementoptions = trueornot;
+        if (SceneManager_Script.instance.Currentlevelinformation() == "CubePuzzler_01")
+        {
+            GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas_Script>().Optionchange();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+
 public class PlayerCube : MonoBehaviour {
 
     // Use this for initialization
@@ -40,31 +41,29 @@ public class PlayerCube : MonoBehaviour {
      
 
         if (Manager_script.instance.orangeAmountText == null) { return; }
+
+
+        switch( Manager_script.instance.movementoptions)
+        {
+            case Manager_script.Movemment.allmovement:
+                AllMovement();
+                break;
+            case Manager_script.Movemment.buttons:
+                Mobilebuttonmovement();
+                break;
+            case Manager_script.Movemment.keyboard:
+                Keyboardmovement();
+                break;
+            case Manager_script.Movemment.touch:
+                Mobiletouchmovement();
+                break;
+            case Manager_script.Movemment.touchandbuttons:
+                Touchandbuttonmovement();
+                break;
+
+        }
         
-        if (Input.GetKeyDown(KeyCode.UpArrow) || moveup)
-
-        {
-
-            Moveup();
-
-            moveup = false;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || movedown)
-        {
-            Movedown();
-            movedown = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)  || moveleft)
-        {
-            Moveleft();
-            moveleft = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)  || moveright)
-        {
-            Moveright();
-            moveright = false;
-        }
+       
         if(playerMoved)
         {
             bool playerCanMove = false;
@@ -184,6 +183,143 @@ public class PlayerCube : MonoBehaviour {
             case 3:
                 moveright = true;
                 break;
+        }
+    }
+
+    public void Mobiletouchmovement()
+    {
+
+        if ( SwipeManager.swipeDirection == Swipe.Up)
+
+        {
+           
+            Moveup();
+
+            moveup = false;
+
+        }
+        else if (SwipeManager.swipeDirection == Swipe.Down)
+        {
+            Movedown();
+            movedown = false;
+        }
+        else if ( SwipeManager.swipeDirection == Swipe.Left)
+        {
+            Moveleft();
+            moveleft = false;
+        }
+        else if (SwipeManager.swipeDirection == Swipe.Right)
+        {
+            Moveright();
+            moveright = false;
+        }
+
+    }
+    public void Mobilebuttonmovement()
+    {
+        if ( moveup)
+
+        {
+            
+            Moveup();
+
+            moveup = false;
+
+        }
+        else if ( movedown )
+        {
+            Movedown();
+            movedown = false;
+        }
+        else if ( moveleft)
+        {
+            Moveleft();
+            moveleft = false;
+        }
+        else if ( moveright )
+        {
+            Moveright();
+            moveright = false;
+        }
+    }
+    public void Keyboardmovement()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) )
+
+        {
+           
+            Moveup();
+
+            moveup = false;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) )
+        {
+            Movedown();
+            movedown = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) )
+        {
+            Moveleft();
+            moveleft = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) )
+        {
+            Moveright();
+            moveright = false;
+        }
+    }
+    public void AllMovement()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || moveup || SwipeManager.swipeDirection == Swipe.Up)
+
+        {
+            
+            Moveup();
+
+            moveup = false;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || movedown || SwipeManager.swipeDirection == Swipe.Down)
+        {
+            Movedown();
+            movedown = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) || moveleft || SwipeManager.swipeDirection == Swipe.Left)
+        {
+            Moveleft();
+            moveleft = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || moveright || SwipeManager.swipeDirection == Swipe.Right)
+        {
+            Moveright();
+            moveright = false;
+        }
+    }
+    public void Touchandbuttonmovement()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || moveup || SwipeManager.swipeDirection == Swipe.Up)
+
+        {
+            Moveup();
+
+            moveup = false;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || movedown || SwipeManager.swipeDirection == Swipe.Down)
+        {
+            Movedown();
+            movedown = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) || moveleft || SwipeManager.swipeDirection == Swipe.Left)
+        {
+            Moveleft();
+            moveleft = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || moveright || SwipeManager.swipeDirection == Swipe.Right)
+        {
+            Moveright();
+            moveright = false;
         }
     }
 
