@@ -117,21 +117,24 @@ MonoBehaviour:
   purpleAmountAct: 0
   orangeAmountAct: 0
   debugCube: {fileID: 1754992441337378, guid: 7d2b03653facddc42aa825e029e1ba61, type: 2}
+  keyObject: {fileID: 1560205991481152, guid: 22f51a1d880327f43b4a6abdf7b6e1a3, type: 2}
+  doorObject: {fileID: 1530242674889700, guid: 3fed0a8e378ce5d41bd0b9cd1232b478, type: 2}
   pathScript: {fileID: 114310521690610706}
   playerReference: {fileID: 0}
   boardScript: {fileID: 0}
   hell: {x: 0, y: 0, z: 0}
   paused: 0
   helpmenu: 0
-  boardWidth: 4
-  boardLength: 3
-  startBoardWidth: 4
-  startBoardLength: 3
+  boardWidth: 8
+  boardLength: 5
+  startBoardWidth: 8
+  startBoardLength: 5
   startIndex: 0
   CheckpointsAmount: 0
   ColorsAmount: 0
   Board: []
   DebugList: []
+  waypointList: []
 --- !u!114 &114800478777940650
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,6 +39,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
     public int orangeAmountAct = 0;
 
     public GameObject debugCube;
+    public GameObject keyObject;
+    public GameObject doorObject;
 
     public Path_Script pathScript;
 
@@ -54,17 +56,19 @@ using System.Collections.Generic;       //Allows us to use Lists.
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     public int boardWidth;
     public int boardLength;
-    public int startBoardWidth = 4;
-    public int startBoardLength = 3;
+    public int startBoardWidth = 8;
+    public int startBoardLength = 5;
     public int startIndex;
     int endIndex;
     public int CheckpointsAmount;
     public int ColorsAmount;
+    public int numberOfRooms;
 
     bool canChangeLevel = true;
 
     public List<GameObject> Board = new List<GameObject>();
     public List<GameObject> DebugList = new List<GameObject>();
+    public List<GameObject> waypointList = new List<GameObject>();
     List<int> wantedPath = new List<int>();
     List<int> randomGoals = new List<int>();
 
@@ -115,8 +119,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
         Debug.Log("first " + first + "second " + second);
         transform.GetChild(0).position = transform.GetChild(0).position+ hell;
         */
-        boardWidth = (int)Math.Floor(Math.Log10(level) * 3 * Math.Log10(level) + 4);
-        if(boardWidth/2 == boardLength && boardWidth != 4 && boardWidth != 5)
+        boardWidth = (int)Math.Floor(Math.Log10(level) * 3 * Math.Log10(level) + 8);
+        if(boardWidth/2 == boardLength)
         {
             boardLength = boardLength + 2;
         }
@@ -124,7 +128,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
         startIndex = (int)Math.Floor((float)boardLength / 2);
         playerReference.GetComponent<PlayerCube>().currenttileindex = startIndex;
         endIndex = startIndex + (boardLength * (boardWidth - 1));
-        CheckpointsAmount = (int)Math.Floor((float)boardWidth / 2);//HARDCODED
+        CheckpointsAmount = boardLength - 2;
         
         ColorsAmount = (int)Math.Floor(Math.Log10(level) * 1.3 * Math.Log10(level) + 3);
         if(ColorsAmount > 7)
@@ -137,6 +141,22 @@ using System.Collections.Generic;       //Allows us to use Lists.
         boardScript.SetupScene(level);
         
         pathScript.NodeList = Board;
+        if (waypointList.Count > 0)
+        {
+            for (int i = 0; i < (waypointList.Count); i++)
+            {
+                GameObject.Destroy(waypointList[i]);
+            }
+            waypointList.Clear();
+        }
+        if (DebugList.Count > 0)
+        {
+            for (int i = 0; i < (DebugList.Count); i++)
+            {
+                GameObject.Destroy(DebugList[i]);
+            }
+            DebugList.Clear();
+        }
         GenerateRandomGoals();
         
         hell = new Vector3(boardWidth-1, 0, boardLength);
@@ -144,6 +164,8 @@ using System.Collections.Generic;       //Allows us to use Lists.
         wantedPath = pathScript.NewPath(randomGoals);
         GameObject.FindGameObjectWithTag("MainCamera").transform.position = hell + (GameObject.FindGameObjectWithTag("MainCamera").transform.forward * -1) * (boardWidth);
         SetupGame();
+
+        
     }
 
     public static void MyDelay(int seconds)
@@ -272,6 +294,47 @@ using System.Collections.Generic;       //Allows us to use Lists.
         for (int i = 0; i < (unsortedRandomGoals.Count); i++)
         {
             randomGoals.Add(unsortedRandomGoals[i]);
+        }
+        bool keyOrDoor = true;
+        List<int> tempRandomGoals = new List<int>();
+        for (int i = 1; i < (randomGoals.Count); i++)
+        {
+            GameObject instance;
+            if (keyOrDoor)
+            {
+                instance = Instantiate(keyObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+                instance.transform.position = Board[randomGoals[i]].transform.position + Vector3.up;
+                keyOrDoor = false;
+            }
+            else
+            {
+                instance = Instantiate(doorObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+                instance.transform.position = Board[randomGoals[i]].transform.position;
+                tempRandomGoals.Add(randomGoals[i] + boardLength);
+                keyOrDoor = true;
+            }
+            if(i == randomGoals.Count - 1 && (randomGoals[i] < (boardLength*(boardWidth-1)) || randomGoals[i] > (boardLength * (boardWidth - 2))))
+            {
+                tempRandomGoals.Add(randomGoals[i] + boardLength);
+            }
+            waypointList.Add(instance);
+        }
+        List<int> newRandomGoals = new List<int>();
+        for (int i = 0; i < (randomGoals.Count); i++)
+        {
+            newRandomGoals.Add(randomGoals[i]);
+            for (int j = 0; j < (tempRandomGoals.Count); j++)
+            {
+                if(randomGoals[i] + boardLength == tempRandomGoals[j])
+                {
+                    newRandomGoals.Add(tempRandomGoals[j]);
+                }
+            }
+        }
+        randomGoals.Clear();
+        for (int i = 0; i < (newRandomGoals.Count); i++)
+        {
+            randomGoals.Add(newRandomGoals[i]);
         }
         randomGoals.Add(endIndex);
     }
